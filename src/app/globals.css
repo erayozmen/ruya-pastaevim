@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-vanilla: #fff8f0;
+  --color-powder-pink: #f6c7c9;
+  --color-peach: #f4b49d;
+  --color-lavender: #dcc9e8;
+  --color-chocolate: #49352f;
+  --color-gold: #c9a46c;
+  --color-gold-light: #e9d6b3;
+  --color-soft-cream: #fcf5ed;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-serif: var(--font-cormorant), serif;
+  --font-sans: var(--font-jakarta), sans-serif;
+  --font-script: var(--font-sacramento), cursive;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --shadow-soft-pastel: 0 20px 40px -15px rgba(246, 199, 201, 0.45);
+  --shadow-card-hover: 0 25px 50px -12px rgba(73, 53, 47, 0.12);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fff8f0;
+  color: #49352f;
+  font-family: var(--font-jakarta), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Smooth custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #fff8f0;
+}
+::-webkit-scrollbar-thumb {
+  background: #f6c7c9;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f4b49d;
+}
+
+/* Organic floating shapes */
+.floating-blob-1 {
+  border-radius: 64% 36% 70% 30% / 49% 60% 40% 51%;
+  animation: floatMorph 10s ease-in-out infinite alternate;
+}
+.floating-blob-2 {
+  border-radius: 38% 62% 43% 57% / 59% 37% 63% 41%;
+  animation: floatMorph 12s ease-in-out infinite alternate-reverse;
+}
+@keyframes floatMorph {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.04) rotate(4deg);
+  }
+  100% {
+    transform: scale(0.98) rotate(-3deg);
+  }
+}
+
+/* Micro sparkles hover */
+.sparkle-badge {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(253, 240, 241, 0.8));
+  backdrop-filter: blur(10px);
 }

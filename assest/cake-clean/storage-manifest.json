@@ -1,0 +1,654 @@
+{
+  "_readme": [
+    "Sprint 5B storage manifest. Tracks where each of the 86 curated source files ended up: uploaded to Supabase Storage (media/cakes/) or intentionally not uploaded (not_recommended in Sprint 5A-2's cleanup-manifest.json).",
+    "No database records (cakes, cake_images, gallery_items) reference these paths yet — that is deliberately out of scope for this sprint."
+  ],
+  "generated_at": "2026-09-21",
+  "project_ref": "kwdwfbwoenyguogexjnb",
+  "summary": {
+    "total_entries": 86,
+    "uploaded": 53,
+    "not_uploaded": 33,
+    "bucket": "media",
+    "prefix": "cakes",
+    "verified_against_live_storage": true,
+    "verification_notes": "Cross-checked via `supabase storage ls --recursive` against this exact list: 53/53 present, 0 missing, 0 unexpected, 0 not_recommended files leaked. Spot-checked 2 uploaded files via public URL (HTTP 200) and 1 not_uploaded AI-flagged file (HTTP 400, confirms absence)."
+  },
+  "entries": [
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.04.jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.04 (1).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.04 (3).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.04 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.04 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.04%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.11.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.11.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.11 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.11%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.04 (4).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.06 (3).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.05.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.05.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.05.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.06 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.06 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.06%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.07 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.07%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.05 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.05 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.05%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.05 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.05 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.05%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.06.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.06.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.06.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.06 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.06 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.06%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.05 (3).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.10 (3).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.06 (4).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07.jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07 (2).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "not_a_cake",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07 (4).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "not_a_cake",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.15 (1).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "not_a_cake",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07 (3).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.09.jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07 (5).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.08 (1).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.09 (1).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07 (6).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.08.jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.08 (2).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.09 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.09 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.09%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.09 (3).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "not_a_cake",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.09 (4).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (1).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (4).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.10.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.10.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.10.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (3).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.11 (3).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.11%20(3).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.10 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.10 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.10%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.10 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.10 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.10%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (5).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.11 (5).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.11%20(5).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.13.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.13.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.13.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (6).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.12.jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.12 (2).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (7).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "ai_generated_flag",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.12 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.12 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.12%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.12 (3).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.12 (3).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.12%20(3).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.12 (4).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.13 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.13 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.13%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.15.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.15.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.15.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.16.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.16.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.16.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.13 (3).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.13 (3).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.13%20(3).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.14.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.14.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.14.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.13 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.13 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.13%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.14 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.14 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.14%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.14 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.14 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.14%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.19 (4).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.19 (4).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.19%20(4).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.14 (3).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.14 (3).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.14%20(3).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.19 (3).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.19 (3).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.19%20(3).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.19 (5).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.19 (5).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.19%20(5).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.19 (2).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.16 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.16 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.16%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.16 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.16 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.16%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.16 (5).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.16 (5).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.16%20(5).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.17.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.17.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.17.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.17 (3).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.17 (3).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.17%20(3).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.16 (3).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "not_a_cake",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.16 (4).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "not_a_cake",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.17 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.17 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.17%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.17 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.17 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.17%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.17 (4).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.17 (4).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.17%20(4).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.18.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.18.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.18.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.18 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.18 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.18%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.19.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.19.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.19.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.15 (3).jpeg",
+      "storage_path": null,
+      "public_url": null,
+      "upload_status": "not_uploaded",
+      "reason": "low_value_or_unusable_as_is",
+      "cleanup_action": "skipped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.15 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.15 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.15%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.19 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.19 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.19%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "cropped"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.20.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.20.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.20.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.20 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.20 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.20%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.20 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.20 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.20%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.20 (3).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.20 (3).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.20%20(3).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.21.jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.21.jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.21.jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.21 (1).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.21 (1).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.21%20(1).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.21 (2).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.21 (2).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.21%20(2).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.21 (3).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.21 (3).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.21%20(3).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.21 (4).jpeg",
+      "storage_path": "media/cakes/WhatsApp Image 2026-09-20 at 21.39.21 (4).jpeg",
+      "public_url": "https://kwdwfbwoenyguogexjnb.supabase.co/storage/v1/object/public/media/cakes/WhatsApp%20Image%202026-09-20%20at%2021.39.21%20(4).jpeg",
+      "upload_status": "uploaded",
+      "cleanup_action": "clean_original"
+    }
+  ]
+}

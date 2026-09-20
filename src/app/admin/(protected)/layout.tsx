@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { href: "/admin", label: "Panel" },
   { href: "/admin/categories", label: "Kategoriler" },
   { href: "/admin/cakes", label: "Pastalar" },
+  { href: "/admin/media", label: "Medya" },
 ] as const;
 
 export default async function AdminProtectedLayout({ children }: { children: React.ReactNode }) {

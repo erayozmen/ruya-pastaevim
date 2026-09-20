@@ -1,0 +1,1407 @@
+{
+  "_readme": [
+    "Sprint 5A-2 cleanup manifest. Deterministic crop-only processing via sharp (Node/libvips) — no generative AI editing, no re-rendering, no content changes.",
+    "Every 'cropped' entry removes only Instagram UI chrome (status bar, header, caption, engagement row, carousel dots) via a rectangular crop; the cake itself, its decorations, and any text on the cake were not touched, redrawn, or altered.",
+    "'clean_original' entries are byte-identical copies of already-clean raw photos (no Instagram UI present) — copied, not re-encoded, so quality is unchanged.",
+    "'skipped' entries (not_recommended in photo-manifest.json — AI-flagged, not-a-cake, or otherwise unusable) were left untouched and produced no output file, per instructions.",
+    "Source files in cake-inbox/ were only ever opened for reading; none were modified, renamed, or deleted."
+  ],
+  "generated_at": "2026-09-21",
+  "source_manifest": "assest/cake-inbox/photo-manifest.json",
+  "output_folder": "assest/cake-clean",
+  "summary": {
+    "total_source_files": 86,
+    "total_manifest_entries_processed": 86,
+    "cropped_ok": 30,
+    "cropped_error": 0,
+    "clean_original": 23,
+    "manual_review": 0,
+    "skipped_not_recommended": 33,
+    "output_files_written": 53
+  },
+  "entries": [
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.04.jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G01",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.04 (1).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G02",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.04 (3).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G02",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.04 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.04 (2).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G03",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 400,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.11.jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G03",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 400,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.11 (2).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G03",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 400,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.04 (4).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G04",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.06 (3).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G04",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.05.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.05.jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G05",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.06 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.06 (1).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G05",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.07 (1).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G05",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.05 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.05 (1).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G06",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 400,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "gallery_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.05 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.05 (2).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G06",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 400,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "gallery_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.06.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.06.jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G06",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 400,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "gallery_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.06 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.06 (2).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G06",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 400,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "gallery_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.05 (3).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G07",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.10 (3).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G07",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.06 (4).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G08",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07.jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G08",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07 (2).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G09",
+      "reason": "not_a_cake",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07 (4).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G09",
+      "reason": "not_a_cake",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.15 (1).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G09",
+      "reason": "not_a_cake",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07 (3).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G10",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.09.jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G10",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07 (5).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G11",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.08 (1).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G11",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.09 (1).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G11",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.07 (6).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G12",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.08.jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G13",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.08 (2).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G13",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.09 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.09 (2).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G14",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop",
+        "instagram_candidate"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.09 (3).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G15",
+      "reason": "not_a_cake",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.09 (4).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G16",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (1).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G16",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (4).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G16",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.10.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.10.jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G17",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (3).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.11 (3).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G17",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.10 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.10 (1).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G18",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 445,
+        "height": 700
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "featured_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 700
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.10 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.10 (2).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G18",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 445,
+        "height": 700
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "featured_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 700
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (5).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.11 (5).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G19",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.13.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.13.jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G19",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (6).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G20",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.12.jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G20",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.12 (2).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G20",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.11 (7).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G21",
+      "reason": "ai_generated_flag",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.12 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.12 (1).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G22",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.12 (3).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.12 (3).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G22",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.12 (4).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G23",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.13 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.13 (1).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G24",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.15.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.15.jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G24",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.16.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.16.jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G24",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.13 (3).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.13 (3).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G25",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.14.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.14.jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G25",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.13 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.13 (2).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G26",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.14 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.14 (2).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G26",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.14 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.14 (1).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G27",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.19 (4).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.19 (4).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G27",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 320,
+        "height": 740
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 739,
+        "height": 740
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.14 (3).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.14 (3).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G28",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.19 (3).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.19 (3).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G28",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.19 (5).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.19 (5).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G28",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.19 (2).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G29",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.16 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.16 (1).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G30",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.16 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.16 (2).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G30",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.16 (5).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.16 (5).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G30",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.17.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.17.jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G30",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.17 (3).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.17 (3).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G30",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.16 (3).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G31",
+      "reason": "not_a_cake",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.16 (4).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G31",
+      "reason": "not_a_cake",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.17 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.17 (1).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G32",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.17 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.17 (2).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G32",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.17 (4).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.17 (4).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G32",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.18.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.18.jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G32",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.18 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.18 (1).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G32",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.19.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.19.jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G32",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.15 (3).jpeg",
+      "output": null,
+      "action": "skipped",
+      "decision": "not_recommended",
+      "group_id": "G33",
+      "reason": "low_value_or_unusable_as_is",
+      "original_preserved": true,
+      "recommended_usage": [
+        "not_recommended"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.15 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.15 (2).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G34",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 730
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "featured_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 738,
+        "height": 730
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.19 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.19 (1).jpeg",
+      "action": "cropped",
+      "decision": "crop_required",
+      "group_id": "G35",
+      "crop_reason": "instagram_ui_removed",
+      "crop_box": {
+        "left": 0,
+        "top": 300,
+        "height": 755
+      },
+      "original_preserved": true,
+      "recommended_usage": [
+        "category_candidate_after_crop"
+      ],
+      "status": "ok",
+      "output_dimensions": {
+        "width": 739,
+        "height": 755
+      }
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.20.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.20.jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G36",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate",
+        "instagram_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.20 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.20 (1).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G36",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate",
+        "instagram_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.20 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.20 (2).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G36",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate",
+        "instagram_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.20 (3).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.20 (3).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G36",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate",
+        "instagram_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.21.jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.21.jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G37",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.21 (1).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.21 (1).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G37",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.21 (2).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.21 (2).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G37",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.21 (3).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.21 (3).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G37",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    },
+    {
+      "source": "WhatsApp Image 2026-09-20 at 21.39.21 (4).jpeg",
+      "output": "WhatsApp Image 2026-09-20 at 21.39.21 (4).jpeg",
+      "action": "clean_original",
+      "decision": "clean_original",
+      "group_id": "G37",
+      "crop_reason": null,
+      "original_preserved": true,
+      "recommended_usage": [
+        "hero_candidate",
+        "featured_candidate",
+        "gallery_candidate"
+      ]
+    }
+  ]
+}

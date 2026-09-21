@@ -14,6 +14,8 @@ export interface SiteSettings {
   instagramHandle: string;
   instagramUrl: string;
   address: string | null;
+  serviceArea: string | null;
+  email: string | null;
   workingHours: string | null;
   deliveryInfo: string | null;
   minimumOrderDays: number | null;
@@ -27,6 +29,8 @@ interface SiteSettingsRow {
   whatsapp_number: string;
   phone: string;
   address: string | null;
+  service_area: string | null;
+  email: string | null;
   working_hours: string | null;
   delivery_info: string | null;
   minimum_order_days: number | null;
@@ -43,6 +47,8 @@ export function mapSiteSettings(row: SiteSettingsRow): SiteSettings {
     instagramHandle: row.instagram_username,
     instagramUrl: row.instagram_url,
     address: row.address,
+    serviceArea: row.service_area,
+    email: row.email,
     workingHours: row.working_hours,
     deliveryInfo: row.delivery_info,
     minimumOrderDays: row.minimum_order_days,
@@ -63,6 +69,8 @@ export const FALLBACK_SITE_SETTINGS: SiteSettings = {
   instagramHandle: siteConfig.contact.instagramHandle,
   instagramUrl: siteConfig.contact.instagramUrl,
   address: null,
+  serviceArea: null,
+  email: null,
   workingHours: null,
   deliveryInfo: null,
   minimumOrderDays: null,

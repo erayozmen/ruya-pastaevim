@@ -1,7 +1,3 @@
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { MobileWhatsAppButton } from "@/components/layout/MobileWhatsAppButton";
 import { Hero } from "@/components/home/Hero";
 import { StorySection } from "@/components/home/StorySection";
 import { CategoriesSection } from "@/components/home/CategoriesSection";
@@ -31,10 +27,6 @@ export default async function Home() {
 
   return (
     <>
-      <AnnouncementBar />
-      <Header site={site} />
-
-      <main>
         <Hero site={site} heroCake={heroCake} featuredReview={reviews[0] ?? null} />
         <StorySection site={site} />
 
@@ -47,10 +39,6 @@ export default async function Home() {
         <ReviewsSection reviews={reviews} />
         <InstagramSection site={site} />
         <FinalCTA site={site} />
-      </main>
-
-      <Footer site={site} />
-      <MobileWhatsAppButton site={site} />
     </>
   );
 }

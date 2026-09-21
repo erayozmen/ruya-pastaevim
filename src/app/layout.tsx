@@ -26,9 +26,12 @@ const sacramento = Sacramento({
 });
 
 export const metadata: Metadata = {
-  title: `${siteConfig.brand.name} | Butik Özel Pasta Atölyesi`,
+  title: {
+    default: `${siteConfig.brand.name} | Butik Özel Pasta Atölyesi`,
+    template: `%s | ${siteConfig.brand.name}`,
+  },
   description:
-    "Doğum günleri, söz & nişan, baby shower ve en özel kutlamalarınız için tamamen el yapımı, katkısız ve size özel tasarlanan butik pastalar.",
+    "Doğum günleri, söz & nişan, baby shower ve en özel kutlamalarınız için size özel tasarlanan butik pastalar.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

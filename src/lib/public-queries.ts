@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 import {
   FALLBACK_SITE_SETTINGS,
@@ -127,18 +128,26 @@ function mapCake(row: {
   };
 }
 
-export async function getPublicCakes(supabase?: Supabase): Promise<PublicCake[]> {
-  const client = supabase ?? (await createClient());
-  const { data, error } = await client
+export async function getPublicCakes(options?: { categoryId?: string }): Promise<PublicCake[]> {
+  const supabase = await createClient();
+  let query = supabase
     .from("cakes")
     .select(CAKE_COLUMNS)
     .eq("is_active", true)
     .order("sort_order", { ascending: true });
+  if (options?.categoryId) query = query.eq("category_id", options.categoryId);
+  const { data, error } = await query;
   logError("cakes", error);
   return (data ?? []).map(mapCake);
 }
 
-export async function getPublicCakeBySlug(slug: string): Promise<PublicCakeDetail | null> {
+/** Active category by slug, or null (callers turn null into a 404). */
+export const getPublicCategoryBySlug = cache(async (slug: string): Promise<PublicCategory | null> => {
+  const categories = await getPublicCategories();
+  return categories.find((category) => category.slug === slug) ?? null;
+});
+
+export const getPublicCakeBySlug = cache(async (slug: string): Promise<PublicCakeDetail | null> => {
   const supabase = await createClient();
   const { data: cake, error } = await supabase
     .from("cakes")
@@ -157,7 +166,7 @@ export async function getPublicCakeBySlug(slug: string): Promise<PublicCakeDetai
   logError("cake_images", imagesError);
 
   return { ...mapCake(cake), images: (images ?? []).map((image) => image.image_url) };
-}
+});
 
 /** First active, featured cake that has a main image — feeds the hero visual. */
 async function getHeroCake(supabase: Supabase): Promise<PublicCake | null> {
@@ -213,6 +222,12 @@ async function getReviews(
     photoUrl: isOwnMediaUrl(row.photo_url) ? row.photo_url : null,
     categoryName: row.category_id ? (categoryNames.get(row.category_id) ?? null) : null,
   }));
+}
+
+export async function getPublicGalleryItems(): Promise<PublicGalleryItem[]> {
+  const supabase = await createClient();
+  const categories = await getPublicCategories(supabase);
+  return getGalleryItems(supabase, new Map(categories.map((category) => [category.id, category.name])));
 }
 
 export async function getHomePageData(): Promise<HomePageData> {

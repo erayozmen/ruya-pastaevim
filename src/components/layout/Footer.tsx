@@ -1,10 +1,13 @@
+import Link from "next/link";
 import type { SiteSettings } from "@/lib/site-data";
 
 const exploreLinks = [
-  { href: "#kategoriler", label: "Pastalarımız" },
-  { href: "#hikayemiz", label: "Hakkımızda" },
-  { href: "#galeri", label: "Fotoğraf Galerisi" },
-  { href: "#tasarla", label: "Pastanı Tasarla" },
+  { href: "/pastalar", label: "Pastalarımız" },
+  { href: "/hakkimizda", label: "Hakkımızda" },
+  { href: "/galeri", label: "Fotoğraf Galerisi" },
+  { href: "/#tasarla", label: "Pastanı Tasarla" },
+  { href: "/nasil-siparis-verilir", label: "Nasıl Sipariş Verilir" },
+  { href: "/iletisim", label: "İletişim" },
 ];
 
 export function Footer({ site }: { site: SiteSettings }) {
@@ -27,8 +30,7 @@ export function Footer({ site }: { site: SiteSettings }) {
               </span>
             </div>
             <p className="text-xs sm:text-sm text-vanilla/70 max-w-sm leading-relaxed">
-              Ev sıcaklığında, katkısız malzemeler ve sevgiyle hazırlanan kişiye özel butik
-              tasarım pastalar.
+              Kişiye özel butik tasarım pastalar.
             </p>
             <p className="text-xs text-gold/80 font-medium">
               ✨ Fabrika değil, el emeği &amp; gerçek lezzet.
@@ -41,9 +43,9 @@ export function Footer({ site }: { site: SiteSettings }) {
             <ul className="space-y-2 text-xs sm:text-sm">
               {exploreLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="hover:text-powder-pink transition-colors">
+                  <Link href={link.href} className="hover:text-powder-pink transition-colors">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

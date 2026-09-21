@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { useCustomizer } from "@/context/customizer-context";
 import { getCategoryCardStyle } from "@/lib/categories-data";
@@ -37,7 +38,7 @@ export function CategoriesSection({ categories }: { categories: PublicCategory[]
                   key={category.id}
                   className="group bg-white rounded-3xl overflow-hidden border border-powder-pink/40 shadow-sm hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
                 >
-                  <div className="relative h-64 overflow-hidden bg-vanilla">
+                  <Link href={`/pastalar/${category.slug}`} aria-label={category.name} className="relative block h-64 overflow-hidden bg-vanilla">
                     {category.imageUrl ? (
                       <ImageWithFallback
                         src={category.imageUrl}
@@ -60,12 +61,12 @@ export function CategoriesSection({ categories }: { categories: PublicCategory[]
                         <span className="text-white text-xs font-medium">{style.hoverText}</span>
                       </div>
                     )}
-                  </div>
+                  </Link>
                   <div className="p-6 text-center">
                     <h3
                       className={`font-serif text-2xl font-bold text-chocolate transition-colors ${style.titleHoverClass}`}
                     >
-                      {category.name}
+                      <Link href={`/pastalar/${category.slug}`}>{category.name}</Link>
                     </h3>
                     {category.description && (
                       <p className="text-chocolate/70 text-xs sm:text-sm mt-2 line-clamp-2">

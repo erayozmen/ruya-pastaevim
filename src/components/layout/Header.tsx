@@ -6,9 +6,9 @@ import type { SiteSettings } from "@/lib/site-data";
 import { buildWhatsappHref } from "@/lib/whatsapp";
 
 const navLinks = [
-  { href: "#kategoriler", label: "Pastalar" },
-  { href: "#hikayemiz", label: "Hikayemiz" },
-  { href: "#galeri", label: "En Sevilenler" },
+  { href: "/pastalar", label: "Pastalar" },
+  { href: "/hakkimizda", label: "Hikayemiz" },
+  { href: "/galeri", label: "En Sevilenler" },
 ];
 
 export function Header({ site }: { site: SiteSettings }) {
@@ -40,22 +40,22 @@ export function Header({ site }: { site: SiteSettings }) {
         {/* Desktop Nav Links */}
         <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-chocolate/80">
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="hover:text-gold transition-colors duration-200">
+            <Link key={link.href} href={link.href} className="hover:text-gold transition-colors duration-200">
               {link.label}
-            </a>
+            </Link>
           ))}
-          <a
-            href="#tasarla"
+          <Link
+            href="/#tasarla"
             className="hover:text-gold transition-colors duration-200 flex items-center gap-1.5 text-chocolate font-semibold"
           >
             <span className="w-2 h-2 rounded-full bg-peach animate-ping"></span> Pastanı Tasarla
-          </a>
-          <a href="#yorumlar" className="hover:text-gold transition-colors duration-200">
+          </Link>
+          <Link href="/#yorumlar" className="hover:text-gold transition-colors duration-200">
             Mutlu Anlar
-          </a>
-          <a href="#iletisim" className="hover:text-gold transition-colors duration-200">
+          </Link>
+          <Link href="/iletisim" className="hover:text-gold transition-colors duration-200">
             İletişim
-          </a>
+          </Link>
         </div>
 
         {/* Header CTA Button */}
@@ -89,36 +89,36 @@ export function Header({ site }: { site: SiteSettings }) {
         }`}
       >
         {navLinks.map((link) => (
-          <a
+          <Link
             key={link.href}
             href={link.href}
             onClick={() => setMobileMenuOpen(false)}
             className="block text-chocolate font-medium hover:text-gold py-1"
           >
             {link.label}
-          </a>
+          </Link>
         ))}
-        <a
-          href="#tasarla"
+        <Link
+          href="/#tasarla"
           onClick={() => setMobileMenuOpen(false)}
           className="block text-peach font-semibold hover:text-gold py-1"
         >
           ✨ Pastanı Tasarla
-        </a>
-        <a
-          href="#yorumlar"
+        </Link>
+        <Link
+          href="/#yorumlar"
           onClick={() => setMobileMenuOpen(false)}
           className="block text-chocolate font-medium hover:text-gold py-1"
         >
           Mutlu Anlar
-        </a>
-        <a
-          href="#iletisim"
+        </Link>
+        <Link
+          href="/iletisim"
           onClick={() => setMobileMenuOpen(false)}
           className="block text-chocolate font-medium hover:text-gold py-1"
         >
           İletişim
-        </a>
+        </Link>
       </div>
     </header>
   );

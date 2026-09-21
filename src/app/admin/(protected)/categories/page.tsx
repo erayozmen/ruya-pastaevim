@@ -8,7 +8,7 @@ export default async function AdminCategoriesPage({
   const supabase = await createClient();
   const { data: categories, error: fetchError } = await supabase
     .from("categories")
-    .select("id, name, slug, sort_order, is_active, show_on_home")
+    .select("id, name, slug, sort_order, is_active, show_on_home, product_group")
     .order("sort_order", { ascending: true });
 
   return (
@@ -42,6 +42,7 @@ export default async function AdminCategoriesPage({
               <th className="px-4 py-3 font-medium">Sıra</th>
               <th className="px-4 py-3 font-medium">Ad</th>
               <th className="px-4 py-3 font-medium">Slug</th>
+              <th className="px-4 py-3 font-medium">Grup</th>
               <th className="px-4 py-3 font-medium">Durum</th>
               <th className="px-4 py-3 font-medium">Ana Sayfa</th>
               <th className="px-4 py-3 font-medium text-right">İşlemler</th>
@@ -53,6 +54,7 @@ export default async function AdminCategoriesPage({
                 <td className="px-4 py-3 text-neutral-500">{category.sort_order}</td>
                 <td className="px-4 py-3 font-medium text-neutral-900">{category.name}</td>
                 <td className="px-4 py-3 text-neutral-500">{category.slug}</td>
+                <td className="px-4 py-3 text-neutral-500">{category.product_group === "pastry" ? "Börek & Hamur İşleri" : "Pastalar"}</td>
                 <td className="px-4 py-3">
                   <span
                     className={`rounded-full px-2 py-0.5 text-xs font-medium ${
@@ -86,7 +88,7 @@ export default async function AdminCategoriesPage({
 
             {categories?.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-6 text-center text-neutral-500">
+                <td colSpan={7} className="px-4 py-6 text-center text-neutral-500">
                   Henüz kategori yok.
                 </td>
               </tr>

@@ -6,7 +6,7 @@ export default async function NewCakePage() {
   const supabase = await createClient();
   const { data: categories } = await supabase
     .from("categories")
-    .select("id, name")
+    .select("id, name, product_group")
     .order("sort_order", { ascending: true });
 
   return (

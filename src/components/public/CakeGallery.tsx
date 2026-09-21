@@ -18,12 +18,10 @@ export function CakeGallery({ images, name }: { images: string[]; name: string }
           <ImageWithFallback
             src={active}
             alt={name}
-            fallbackSrc={`https://placehold.co/800x1000/F6C7C9/49352F?text=${encodeURIComponent(name)}`}
             className="w-full h-full object-cover object-center"
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-powder-pink/60 via-vanilla to-lavender/50 flex items-center justify-center text-7xl text-gold/70">
-            <i className="fa-solid fa-cake-candles"></i>
           </div>
         )}
       </div>

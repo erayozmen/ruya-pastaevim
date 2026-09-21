@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { BrandMark } from "./BrandMark";
 import type { SiteSettings } from "@/lib/site-data";
 
 const exploreLinks = [
   { href: "/pastalar", label: "Pastalarımız" },
+  { href: "/borek-hamur-isleri", label: "Börek & Hamur İşleri" },
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/galeri", label: "Fotoğraf Galerisi" },
   { href: "/#tasarla", label: "Pastanı Tasarla" },
@@ -23,17 +25,9 @@ export function Footer({ site }: { site: SiteSettings }) {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
           {/* Brand Col */}
           <div className="md:col-span-2 space-y-3">
-            <div className="flex items-center gap-2">
-              <i className="fa-solid fa-cake-candles text-gold text-2xl"></i>
-              <span className="font-serif text-2xl font-bold text-white tracking-wide">
-                {site.brandName}
-              </span>
-            </div>
+            <BrandMark name={site.brandName} variant="footer" />
             <p className="text-xs sm:text-sm text-vanilla/70 max-w-sm leading-relaxed">
-              Kişiye özel butik tasarım pastalar.
-            </p>
-            <p className="text-xs text-gold/80 font-medium">
-              ✨ Fabrika değil, el emeği &amp; gerçek lezzet.
+              Kişiye özel butik pastalar, börek ve hamur işleri.
             </p>
           </div>
 
@@ -65,10 +59,7 @@ export function Footer({ site }: { site: SiteSettings }) {
         </div>
 
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-vanilla/50 gap-4">
-          <p>© 2026 {site.brandName} - Tüm Hakları Saklıdır. Butik Cake Studio.</p>
-          <div className="flex items-center gap-4">
-            <span>Sevgiyle el yapımı üretilmiştir 🧁</span>
-          </div>
+          <p>© 2026 {site.brandName} - Tüm Hakları Saklıdır.</p>
         </div>
       </div>
     </footer>

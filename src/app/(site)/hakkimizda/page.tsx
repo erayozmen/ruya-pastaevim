@@ -5,7 +5,7 @@ import { getSiteSettings } from "@/lib/public-queries";
 
 export const metadata: Metadata = {
   title: "Hikayemiz",
-  description: "Rüyam Pasta Evim hakkında.",
+  description: "Rüya Pasta Evim hakkında.",
 };
 
 export default async function AboutPage() {

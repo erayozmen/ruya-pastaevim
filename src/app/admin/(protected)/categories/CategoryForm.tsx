@@ -1,8 +1,9 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import type { Tables } from "@/lib/database/helpers";
 import type { FormState } from "./actions";
+import { MediaPicker } from "../media/MediaPicker";
 
 type Action = (state: FormState, formData: FormData) => Promise<FormState>;
 
@@ -14,6 +15,7 @@ export function CategoryForm({
   category?: Tables<"categories">;
 }) {
   const [state, formAction, pending] = useActionState(action, undefined);
+  const [imageUrl, setImageUrl] = useState<string | null>(category?.image_url ?? null);
 
   return (
     <form action={formAction} className="flex max-w-xl flex-col gap-4">
@@ -59,16 +61,46 @@ export function CategoryForm({
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="image_url" className="text-sm font-medium text-neutral-700">
-          Görsel URL
+        <label htmlFor="product_group" className="text-sm font-medium text-neutral-700">
+          Ürün Grubu *
         </label>
-        <input
-          id="image_url"
-          name="image_url"
-          type="url"
-          defaultValue={category?.image_url ?? ""}
+        <select
+          id="product_group"
+          name="product_group"
+          defaultValue={category?.product_group ?? "cake"}
           className="rounded-md border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-500"
-        />
+        >
+          <option value="cake">Pastalar</option>
+          <option value="pastry">Börek &amp; Hamur İşleri</option>
+        </select>
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <span className="text-sm font-medium text-neutral-700">Kategori Görseli</span>
+        <input type="hidden" name="image_url" value={imageUrl ?? ""} />
+        <div className="flex items-center gap-3">
+          {imageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={imageUrl} alt="Kategori görseli" className="h-20 w-20 rounded-md border border-neutral-200 object-cover" />
+          ) : (
+            <div className="flex h-20 w-20 items-center justify-center rounded-md border border-dashed border-neutral-300 text-xs text-neutral-400">
+              Yok
+            </div>
+          )}
+          <div className="flex flex-col gap-2">
+            <MediaPicker
+              multiple={false}
+              selected={imageUrl ? [imageUrl] : []}
+              onConfirm={(urls) => urls[0] && setImageUrl(urls[0])}
+              triggerLabel={imageUrl ? "Değiştir" : "Görsel Seç"}
+            />
+            {imageUrl && (
+              <button type="button" onClick={() => setImageUrl(null)} className="text-left text-xs text-red-600 hover:underline">
+                Kaldır
+              </button>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="flex gap-4">

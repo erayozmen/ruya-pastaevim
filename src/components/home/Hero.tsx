@@ -33,7 +33,7 @@ export function Hero({
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full sparkle-badge border border-powder-pink shadow-sm">
               <span className="text-xs sm:text-sm font-semibold text-chocolate flex items-center gap-1.5">
                 <i className="fa-solid fa-wand-magic-sparkles text-gold"></i>
-                Butik Cake Studio &amp; Atölye
+                Kişiye Özel Butik Pastane
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-peach"></span>
               <span className="text-xs text-chocolate/70 font-medium">{site.bakerName}</span>
@@ -49,8 +49,8 @@ export function Hero({
             </h1>
 
             <p className="text-base sm:text-lg text-chocolate/80 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
-              Doğum günleri, söz &amp; nişan, baby shower ve en özel kutlamalarınız için tamamen
-              el yapımı, katkısız ve size özel tasarlanan unutulmaz butik pastalar.
+              Doğum günleri, söz &amp; nişan, baby shower ve özel kutlamalarınız için size özel
+              tasarlanan butik pastalar, börek ve hamur işleri.
             </p>
 
             {/* Hero Buttons */}
@@ -80,7 +80,7 @@ export function Hero({
                 <span className="w-7 h-7 rounded-full bg-peach/30 text-chocolate flex items-center justify-center text-xs">
                   <i className="fa-solid fa-heart text-peach"></i>
                 </span>
-                <span>%100 Gerçek Tereyağ &amp; Doğal</span>
+                <span>WhatsApp ile Kolay Sipariş</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-7 h-7 rounded-full bg-lavender/50 text-chocolate flex items-center justify-center text-xs">
@@ -105,7 +105,6 @@ export function Hero({
                 <ImageWithFallback
                   src={heroCake.mainImageUrl}
                   alt={heroCake.name}
-                  fallbackSrc="https://placehold.co/800x1000/F6C7C9/49352F?text=Butik+Pasta"
                   className="w-full h-full object-cover object-center"
                 />
               ) : (

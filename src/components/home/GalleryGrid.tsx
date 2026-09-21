@@ -34,9 +34,6 @@ export function GalleryGrid({ items, site }: { items: PublicGalleryItem[]; site:
             <ImageWithFallback
               src={item.imageUrl}
               alt={item.title}
-              fallbackSrc={`https://placehold.co/600x${tall ? "900" : "500"}/F6C7C9/49352F?text=${encodeURIComponent(
-                item.title,
-              )}`}
               className={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${
                 tall ? "h-full min-h-[360px]" : "h-72"
               }`}

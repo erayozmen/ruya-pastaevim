@@ -8,11 +8,15 @@ export function CakeListing({
   categories,
   activeSlug,
   emptyMessage,
+  basePath = "/pastalar",
+  productPath = "/pasta",
 }: {
   cakes: PublicCake[];
   categories: PublicCategory[];
   activeSlug: string | null;
   emptyMessage: string;
+  basePath?: string;
+  productPath?: string;
 }) {
   const categoryNames = new Map(categories.map((category) => [category.id, category.name]));
 
@@ -27,13 +31,13 @@ export function CakeListing({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {categories.length > 0 && (
         <nav aria-label="Kategoriler" className="flex flex-wrap items-center justify-center gap-3 mb-12">
-          <Link href="/pastalar" className={pillClass(activeSlug === null)}>
+          <Link href={basePath} className={pillClass(activeSlug === null)}>
             Tümü
           </Link>
           {categories.map((category) => (
             <Link
               key={category.id}
-              href={`/pastalar/${category.slug}`}
+              href={`${basePath}/${category.slug}`}
               className={pillClass(activeSlug === category.slug)}
             >
               {category.emoji ? `${category.emoji} ` : ""}
@@ -51,6 +55,7 @@ export function CakeListing({
             <CakeCard
               key={cake.id}
               cake={cake}
+              href={`${productPath}/${cake.slug}`}
               categoryName={cake.categoryId ? (categoryNames.get(cake.categoryId) ?? null) : null}
             />
           ))}

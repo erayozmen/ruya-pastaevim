@@ -46,7 +46,6 @@ export function ReviewsSection({ reviews }: { reviews: PublicReview[] }) {
                       <ImageWithFallback
                         src={review.photoUrl}
                         alt={`Müşteri ${review.customerName}`}
-                        fallbackSrc="https://placehold.co/100x100/F6C7C9/49352F?text=%3A%29"
                         className={`w-11 h-11 rounded-full object-cover border-2 ${accent.border}`}
                       />
                     ) : (

@@ -131,6 +131,7 @@ export type Database = {
           image_url: string | null
           is_active: boolean
           name: string
+          product_group: string
           show_on_home: boolean
           slug: string
           sort_order: number
@@ -144,6 +145,7 @@ export type Database = {
           image_url?: string | null
           is_active?: boolean
           name: string
+          product_group?: string
           show_on_home?: boolean
           slug: string
           sort_order?: number
@@ -157,6 +159,7 @@ export type Database = {
           image_url?: string | null
           is_active?: boolean
           name?: string
+          product_group?: string
           show_on_home?: boolean
           slug?: string
           sort_order?: number

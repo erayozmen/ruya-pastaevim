@@ -123,7 +123,8 @@ export async function deleteMedia(path: string): Promise<DeleteResult> {
   const { data: publicUrlData } = supabase.storage.from(BUCKET).getPublicUrl(path);
   const publicUrl = publicUrlData.publicUrl;
 
-  const [cakeRef, cakeImageRef, galleryRef, reviewRef] = await Promise.all([
+  const [categoryRef, cakeRef, cakeImageRef, galleryRef, reviewRef] = await Promise.all([
+    supabase.from("categories").select("id", { count: "exact", head: true }).eq("image_url", publicUrl),
     supabase.from("cakes").select("id", { count: "exact", head: true }).eq("main_image_url", publicUrl),
     supabase.from("cake_images").select("id", { count: "exact", head: true }).eq("image_url", publicUrl),
     supabase.from("gallery_items").select("id", { count: "exact", head: true }).eq("image_url", publicUrl),
@@ -131,7 +132,7 @@ export async function deleteMedia(path: string): Promise<DeleteResult> {
   ]);
 
   const totalReferences =
-    (cakeRef.count ?? 0) + (cakeImageRef.count ?? 0) + (galleryRef.count ?? 0) + (reviewRef.count ?? 0);
+    (categoryRef.count ?? 0) + (cakeRef.count ?? 0) + (cakeImageRef.count ?? 0) + (galleryRef.count ?? 0) + (reviewRef.count ?? 0);
 
   if (totalReferences > 0) {
     return { error: "Bu görsel şu içeriklerde kullanılıyor, önce bağlantıyı kaldırın." };

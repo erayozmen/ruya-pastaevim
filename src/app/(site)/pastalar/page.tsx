@@ -9,7 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default async function CakesPage() {
-  const [cakes, categories] = await Promise.all([getPublicCakes(), getPublicCategories()]);
+  const [cakes, categories] = await Promise.all([getPublicCakes({ group: "cake" }),
+    getPublicCategories(undefined, "cake"),
+  ]);
 
   return (
     <section className="py-20">

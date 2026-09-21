@@ -27,7 +27,7 @@ const sacramento = Sacramento({
 
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.brand.name} | Butik Özel Pasta Atölyesi`,
+    default: `${siteConfig.brand.name} | Butik Pasta, Börek & Hamur İşleri`,
     template: `%s | ${siteConfig.brand.name}`,
   },
   description:

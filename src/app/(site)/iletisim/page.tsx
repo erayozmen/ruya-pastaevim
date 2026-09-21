@@ -5,7 +5,7 @@ import { buildWhatsappHref } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "İletişim",
-  description: "Rüyam Pasta Evim iletişim bilgileri.",
+  description: "Rüya Pasta Evim iletişim bilgileri.",
 };
 
 export default async function ContactPage() {

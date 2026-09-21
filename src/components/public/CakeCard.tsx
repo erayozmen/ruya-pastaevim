@@ -10,12 +10,20 @@ export function formatCakePrice(cake: Pick<PublicCake, "price" | "showPrice">): 
 }
 
 /** Same card language as the homepage category cards. */
-export function CakeCard({ cake, categoryName }: { cake: PublicCake; categoryName: string | null }) {
+export function CakeCard({
+  cake,
+  categoryName,
+  href,
+}: {
+  cake: PublicCake;
+  categoryName: string | null;
+  href: string;
+}) {
   const price = formatCakePrice(cake);
 
   return (
     <Link
-      href={`/pasta/${cake.slug}`}
+      href={href}
       className="group bg-white rounded-3xl overflow-hidden border border-powder-pink/40 shadow-sm hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 flex flex-col"
     >
       <div className="relative h-64 overflow-hidden bg-vanilla">
@@ -23,12 +31,10 @@ export function CakeCard({ cake, categoryName }: { cake: PublicCake; categoryNam
           <ImageWithFallback
             src={cake.mainImageUrl}
             alt={cake.name}
-            fallbackSrc={`https://placehold.co/600x600/F6C7C9/49352F?text=${encodeURIComponent(cake.name)}`}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-powder-pink/40 via-vanilla to-lavender/40 flex items-center justify-center text-5xl text-gold/70">
-            <i className="fa-solid fa-cake-candles"></i>
           </div>
         )}
         {cake.isFeatured && (

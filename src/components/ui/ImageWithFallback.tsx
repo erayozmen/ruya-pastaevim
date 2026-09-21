@@ -2,26 +2,20 @@
 
 import type { ImgHTMLAttributes } from "react";
 
-interface ImageWithFallbackProps extends ImgHTMLAttributes<HTMLImageElement> {
-  src: string;
-  alt: string;
-  fallbackSrc: string;
-}
-
 /**
- * Orijinal HTML'deki `<img onerror="this.src='...'">` davranışının
- * React karşılığı. Demo Unsplash görseli yüklenemezse placehold.co
- * görseline düşer.
+ * Real images only: if a file fails to load the <img> is hidden so the
+ * card background shows, instead of swapping in a placeholder image.
  */
-export function ImageWithFallback({ src, alt, fallbackSrc, ...rest }: ImageWithFallbackProps) {
+export function ImageWithFallback({ src, alt, ...rest }: ImgHTMLAttributes<HTMLImageElement> & { src: string; alt: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
       alt={alt}
+      loading="lazy"
       onError={(e) => {
         e.currentTarget.onerror = null;
-        e.currentTarget.src = fallbackSrc;
+        e.currentTarget.style.visibility = "hidden";
       }}
       {...rest}
     />

@@ -35,7 +35,7 @@ function parseCakeForm(formData: FormData) {
 }
 
 function validateCake(values: ReturnType<typeof parseCakeForm>): string | undefined {
-  if (!values.name) return "Pasta adı zorunludur.";
+  if (!values.name) return "Ürün adı zorunludur.";
   if (!values.slug) return "Geçerli bir slug oluşturulamadı.";
   if (!values.category_id) return "Kategori seçimi zorunludur.";
   if (values.priceRaw !== "" && (values.price === null || Number.isNaN(values.price))) {

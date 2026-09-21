@@ -80,7 +80,7 @@ export const FALLBACK_SITE_SETTINGS: SiteSettings = {
  * True only for images served from this project's own Supabase Storage.
  * The seed data still carries Unsplash demo URLs in `categories.image_url`
  * and `customizer_themes.image_url`; those are stock photos and must not
- * be presented as Rüyam Pasta Evim's own work, so anything that is not a
+ * be presented as Rüya Pasta Evim's own work, so anything that is not a
  * Storage URL is treated as "no image".
  */
 export function isOwnMediaUrl(url: string | null | undefined): url is string {

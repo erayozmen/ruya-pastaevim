@@ -352,8 +352,7 @@ export function CakeCustomizer({
               <span className="text-base text-gold">💡</span>
               <p>
                 <strong>Önemli İpucu:</strong> Özel pasta siparişlerinizin ne kadar önceden
-                bildirilmesi gerektiğini öğrenmek için bizimle iletişime geçin; el yapımı
-                figürlerin hazırlanması zaman alabilir.
+                bildirilmesi gerektiğini öğrenmek için bizimle iletişime geçin.
               </p>
             </div>
           </div>

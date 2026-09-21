@@ -13,7 +13,7 @@ export default async function EditCakePage({
 
   const [{ data: cake }, { data: categories }, { data: images }] = await Promise.all([
     supabase.from("cakes").select("*").eq("id", id).single(),
-    supabase.from("categories").select("id, name").order("sort_order", { ascending: true }),
+    supabase.from("categories").select("id, name, product_group").order("sort_order", { ascending: true }),
     supabase
       .from("cake_images")
       .select("image_url")

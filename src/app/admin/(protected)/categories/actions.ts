@@ -23,6 +23,8 @@ function parseCategoryForm(formData: FormData) {
     description: description || null,
     image_url: image_url || null,
     icon_emoji: icon_emoji || null,
+    product_group: formData.get("product_group") === "pastry" ? "pastry" : "cake",
+
     sort_order: Number.isFinite(sortOrder) ? sortOrder : 0,
     is_active: formData.get("is_active") === "on",
     show_on_home: formData.get("show_on_home") === "on",
@@ -90,7 +92,7 @@ export async function deleteCategory(id: string) {
   if (error?.code === "23503") {
     redirect(
       `/admin/categories?error=${encodeURIComponent(
-        "Bu kategoriye bağlı pastalar var. Önce onları başka bir kategoriye taşıyın veya silin.",
+        "Bu kategoriye bağlı ürünler var. Önce onları başka bir kategoriye taşıyın veya silin.",
       )}`,
     );
   }

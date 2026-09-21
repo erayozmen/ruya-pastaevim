@@ -27,7 +27,7 @@ insert into public.site_settings (
   id, brand_name, baker_name, instagram_username, instagram_url,
   whatsapp_number, phone
 ) values (
-  true, 'Rüyam Pasta Evim', 'Gülden Kantor', '@ruyapastaevim',
+  true, 'Rüya Pasta Evim', 'Gülden Kantor', '@ruyapastaevim',
   'https://www.instagram.com/ruyapastaevim/', '905419090725', '0541 909 07 25'
 );
 

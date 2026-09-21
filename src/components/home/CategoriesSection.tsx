@@ -43,9 +43,6 @@ export function CategoriesSection({ categories }: { categories: PublicCategory[]
                       <ImageWithFallback
                         src={category.imageUrl}
                         alt={category.name}
-                        fallbackSrc={`https://placehold.co/600x600/F6C7C9/49352F?text=${encodeURIComponent(
-                          category.name,
-                        )}`}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (

@@ -1,6 +1,7 @@
 import { Hero } from "@/components/home/Hero";
 import { StorySection } from "@/components/home/StorySection";
 import { CategoriesSection } from "@/components/home/CategoriesSection";
+import { PastrySection } from "@/components/home/PastrySection";
 import { GallerySection } from "@/components/home/GallerySection";
 import { CakeCustomizer } from "@/components/home/CakeCustomizer";
 import { ReviewsSection } from "@/components/home/ReviewsSection";
@@ -15,7 +16,7 @@ export default async function Home() {
     getCustomizerOptions(),
     getHomePageData(),
   ]);
-  const { site, categories, heroCake, galleryItems, reviews } = home;
+  const { site, categories, pastryCategories, pastryProducts, heroCake, galleryItems, reviews } = home;
 
   const initialState = {
     portion: options.portions[0]?.value ?? "",
@@ -32,6 +33,7 @@ export default async function Home() {
 
         <CustomizerProvider initialState={initialState}>
           <CategoriesSection categories={categories} />
+          <PastrySection products={pastryProducts} categories={pastryCategories} />
           <GallerySection items={galleryItems} site={site} />
           <CakeCustomizer options={options} error={customizerError} site={site} />
         </CustomizerProvider>

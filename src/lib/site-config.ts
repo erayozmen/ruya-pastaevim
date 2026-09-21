@@ -13,7 +13,7 @@
  */
 export const siteConfig = {
   brand: {
-    name: "Rüyam Pasta Evim",
+    name: "Rüya Pasta Evim",
     tagline: "Kişiye Özel Butik Pastane",
     baker: "Gülden Kantor",
   },

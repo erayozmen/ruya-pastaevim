@@ -15,7 +15,7 @@ export function CakeForm({
 }: {
   action: Action;
   cake?: Tables<"cakes">;
-  categories: Pick<Tables<"categories">, "id" | "name">[];
+  categories: Pick<Tables<"categories">, "id" | "name" | "product_group">[];
   initialGalleryUrls?: string[];
 }) {
   const [state, formAction, pending] = useActionState(action, undefined);
@@ -40,7 +40,7 @@ export function CakeForm({
     <form action={formAction} className="flex max-w-xl flex-col gap-4">
       <div className="flex flex-col gap-1.5">
         <label htmlFor="name" className="text-sm font-medium text-neutral-700">
-          Pasta Adı *
+          Ürün Adı *
         </label>
         <input
           id="name"
@@ -66,10 +66,21 @@ export function CakeForm({
           <option value="" disabled>
             Kategori seçin
           </option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
+          {(
+            [
+              ["cake", "Pastalar"],
+              ["pastry", "Börek & Hamur İşleri"],
+            ] as const
+          ).map(([group, label]) => (
+            <optgroup key={group} label={label}>
+              {categories
+                .filter((category) => category.product_group === group)
+                .map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+            </optgroup>
           ))}
         </select>
       </div>

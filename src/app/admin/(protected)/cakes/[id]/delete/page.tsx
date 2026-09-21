@@ -17,10 +17,10 @@ export default async function DeleteCakePage({ params }: PageProps<"/admin/cakes
 
   return (
     <div className="max-w-md rounded-lg border border-red-200 bg-white p-6">
-      <h1 className="text-lg font-semibold text-neutral-900">Pastayı Sil</h1>
+      <h1 className="text-lg font-semibold text-neutral-900">Ürünü Sil</h1>
       <p className="mt-2 text-sm text-neutral-600">
-        &ldquo;<strong>{cake.name}</strong>&rdquo; pastasını silmek istediğinize emin misiniz? Bu işlem
-        geri alınamaz. Bu pastaya ait görseller de birlikte silinir; bağlı yorumlar pastasız olarak
+        &ldquo;<strong>{cake.name}</strong>&rdquo; ürününü silmek istediğinize emin misiniz? Bu işlem
+        geri alınamaz. Bu ürüne ait görseller de birlikte silinir; bağlı yorumlar ürünsüz olarak
         kalır.
       </p>
 

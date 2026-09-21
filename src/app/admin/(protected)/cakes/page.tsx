@@ -17,9 +17,9 @@ export default async function AdminCakesPage({ searchParams }: PageProps<"/admin
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-lg font-semibold text-neutral-900">Pastalar</h1>
+        <h1 className="text-lg font-semibold text-neutral-900">Ürünler</h1>
         <Link href="/admin/cakes/new" className="rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white">
-          Yeni Pasta
+          Yeni Ürün
         </Link>
       </div>
 
@@ -31,7 +31,7 @@ export default async function AdminCakesPage({ searchParams }: PageProps<"/admin
 
       {fetchError && (
         <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-          Pastalar yüklenemedi: {fetchError.message}
+          Ürünler yüklenemedi: {fetchError.message}
         </div>
       )}
 
@@ -90,7 +90,7 @@ export default async function AdminCakesPage({ searchParams }: PageProps<"/admin
             {cakes?.length === 0 && (
               <tr>
                 <td colSpan={6} className="px-4 py-6 text-center text-neutral-500">
-                  Henüz pasta yok.
+                  Henüz ürün yok.
                 </td>
               </tr>
             )}

@@ -10,36 +10,40 @@ import {
 
 export async function generateMetadata({
   params,
-}: PageProps<"/pastalar/[category]">): Promise<Metadata> {
+}: PageProps<"/borek-hamur-isleri/[category]">): Promise<Metadata> {
   const { category: slug } = await params;
   const category = await getPublicCategoryBySlug(slug);
-  return category?.group === "cake" ? { title: category.name } : { title: "Kategori bulunamadı" };
+  return category?.group === "pastry" ? { title: category.name } : { title: "Kategori bulunamadı" };
 }
 
-export default async function CategoryCakesPage({ params }: PageProps<"/pastalar/[category]">) {
+export default async function PastryCategoryPage({
+  params,
+}: PageProps<"/borek-hamur-isleri/[category]">) {
   const { category: slug } = await params;
   const category = await getPublicCategoryBySlug(slug);
-  if (!category || category.group !== "cake") notFound();
+  if (!category || category.group !== "pastry") notFound();
 
-  const [cakes, categories] = await Promise.all([
+  const [products, categories] = await Promise.all([
     getPublicCakes({ categoryId: category.id }),
-    getPublicCategories(undefined, "cake"),
+    getPublicCategories(undefined, "pastry"),
   ]);
 
   return (
     <section className="py-20">
       <div className="mb-14 px-4">
         <PageIntro
-          script={category.emoji ? `${category.emoji} Kategori` : "Kategori"}
+          script="Börek & Hamur İşleri"
           title={category.name}
           description={category.description ?? undefined}
         />
       </div>
       <CakeListing
-        cakes={cakes}
+        cakes={products}
         categories={categories}
         activeSlug={category.slug}
-        emptyMessage="Bu kategoride henüz yayınlanmış pasta bulunmuyor."
+        emptyMessage="Bu kategoride henüz yayınlanmış ürün bulunmuyor."
+        basePath="/borek-hamur-isleri"
+        productPath="/urun"
       />
     </section>
   );

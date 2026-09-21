@@ -15,6 +15,8 @@ import {
  * empty list / fallback so the page still renders.
  */
 
+export type ProductGroup = "cake" | "pastry";
+
 export interface PublicCategory {
   id: string;
   slug: string;
@@ -24,6 +26,7 @@ export interface PublicCategory {
   imageUrl: string | null;
   emoji: string | null;
   showOnHome: boolean;
+  group: ProductGroup;
 }
 
 export interface PublicCake {
@@ -39,6 +42,7 @@ export interface PublicCake {
 }
 
 export interface PublicCakeDetail extends PublicCake {
+  group: ProductGroup;
   /** Extra gallery images, in `cake_images.sort_order`. */
   images: string[];
 }
@@ -63,6 +67,8 @@ export interface PublicReview {
 export interface HomePageData {
   site: SiteSettings;
   categories: PublicCategory[];
+  pastryCategories: PublicCategory[];
+  pastryProducts: PublicCake[];
   heroCake: PublicCake | null;
   galleryItems: PublicGalleryItem[];
   reviews: PublicReview[];
@@ -81,24 +87,29 @@ export async function getSiteSettings(supabase?: Supabase): Promise<SiteSettings
   return data ? mapSiteSettings(data) : FALLBACK_SITE_SETTINGS;
 }
 
-export async function getPublicCategories(supabase?: Supabase): Promise<PublicCategory[]> {
+export async function getPublicCategories(
+  supabase?: Supabase,
+  group?: ProductGroup,
+): Promise<PublicCategory[]> {
   const client = supabase ?? (await createClient());
   const { data, error } = await client
     .from("categories")
-    .select("id, slug, name, description, image_url, icon_emoji, show_on_home")
+    .select("id, slug, name, description, image_url, icon_emoji, show_on_home, product_group")
     .eq("is_active", true)
     .order("sort_order", { ascending: true });
   logError("categories", error);
 
-  return (data ?? []).map((row) => ({
+  const mapped = (data ?? []).map((row) => ({
     id: row.id,
     slug: row.slug,
     name: row.name,
     description: row.description,
+    group: (row.product_group === "pastry" ? "pastry" : "cake") as ProductGroup,
     imageUrl: isOwnMediaUrl(row.image_url) ? row.image_url : null,
     emoji: row.icon_emoji,
     showOnHome: row.show_on_home,
   }));
+  return group ? mapped.filter((category) => category.group === group) : mapped;
 }
 
 const CAKE_COLUMNS =
@@ -128,14 +139,25 @@ function mapCake(row: {
   };
 }
 
-export async function getPublicCakes(options?: { categoryId?: string }): Promise<PublicCake[]> {
+export async function getPublicCakes(options?: {
+  categoryId?: string;
+  group?: ProductGroup;
+  limit?: number;
+}): Promise<PublicCake[]> {
   const supabase = await createClient();
+  let groupIds: string[] | null = null;
+  if (options?.group) {
+    groupIds = (await getPublicCategories(supabase, options.group)).map((category) => category.id);
+    if (groupIds.length === 0) return [];
+  }
   let query = supabase
     .from("cakes")
     .select(CAKE_COLUMNS)
     .eq("is_active", true)
     .order("sort_order", { ascending: true });
   if (options?.categoryId) query = query.eq("category_id", options.categoryId);
+  if (groupIds) query = query.in("category_id", groupIds);
+  if (options?.limit) query = query.limit(options.limit);
   const { data, error } = await query;
   logError("cakes", error);
   return (data ?? []).map(mapCake);
@@ -165,7 +187,10 @@ export const getPublicCakeBySlug = cache(async (slug: string): Promise<PublicCak
     .order("sort_order", { ascending: true });
   logError("cake_images", imagesError);
 
-  return { ...mapCake(cake), images: (images ?? []).map((image) => image.image_url) };
+  const categories = await getPublicCategories(supabase);
+  const group = categories.find((category) => category.id === cake.category_id)?.group ?? "cake";
+
+  return { ...mapCake(cake), group, images: (images ?? []).map((image) => image.image_url) };
 });
 
 /** First active, featured cake that has a main image — feeds the hero visual. */
@@ -241,14 +266,17 @@ export async function getHomePageData(): Promise<HomePageData> {
 
   const categoryNames = new Map(allCategories.map((category) => [category.id, category.name]));
 
-  const [galleryItems, reviews] = await Promise.all([
+  const [galleryItems, reviews, pastryProducts] = await Promise.all([
     getGalleryItems(supabase, categoryNames),
     getReviews(supabase, categoryNames),
+    getPublicCakes({ group: "pastry", limit: 6 }),
   ]);
 
   return {
     site,
-    categories: allCategories.filter((category) => category.showOnHome),
+    categories: allCategories.filter((category) => category.showOnHome && category.group === "cake"),
+    pastryCategories: allCategories.filter((category) => category.group === "pastry"),
+    pastryProducts,
     heroCake,
     galleryItems,
     reviews,

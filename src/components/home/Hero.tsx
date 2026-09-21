@@ -1,10 +1,22 @@
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import { siteConfig } from "@/lib/site-config";
+import type { PublicCake, PublicReview } from "@/lib/public-queries";
+import type { SiteSettings } from "@/lib/site-data";
 import { buildWhatsappHref } from "@/lib/whatsapp";
 
-export function Hero() {
+export function Hero({
+  site,
+  heroCake,
+  featuredReview,
+}: {
+  site: SiteSettings;
+  /** First active featured cake with a main image, if the admin has published one. */
+  heroCake: PublicCake | null;
+  /** First active real review, if any — never a placeholder. */
+  featuredReview: PublicReview | null;
+}) {
   const primaryWhatsappHref = buildWhatsappHref(
     "Merhaba, özel günümüz için pasta siparişi vermek istiyorum.",
+    site.whatsappNumber,
   );
 
   return (
@@ -24,7 +36,7 @@ export function Hero() {
                 Butik Cake Studio &amp; Atölye
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-peach"></span>
-              <span className="text-xs text-chocolate/70 font-medium">{siteConfig.brand.baker}</span>
+              <span className="text-xs text-chocolate/70 font-medium">{site.bakerName}</span>
             </div>
 
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-chocolate leading-[1.12]">
@@ -89,30 +101,43 @@ export function Hero() {
 
             {/* Hero Cake Image */}
             <div className="relative w-full max-w-md sm:max-w-lg aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/80 transition-transform duration-500 hover:scale-[1.01]">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=1000&q=80"
-                alt="Özel Tasarım Çiçekli Butik Pasta"
-                fallbackSrc="https://placehold.co/800x1000/F6C7C9/49352F?text=Butik+Pasta"
-                className="w-full h-full object-cover object-center"
-              />
+              {heroCake?.mainImageUrl ? (
+                <ImageWithFallback
+                  src={heroCake.mainImageUrl}
+                  alt={heroCake.name}
+                  fallbackSrc="https://placehold.co/800x1000/F6C7C9/49352F?text=Butik+Pasta"
+                  className="w-full h-full object-cover object-center"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-powder-pink/60 via-vanilla to-lavender/50 flex items-center justify-center text-7xl text-gold/70">
+                  <i className="fa-solid fa-cake-candles"></i>
+                </div>
+              )}
 
               <div className="absolute inset-0 bg-gradient-to-t from-chocolate/40 via-transparent to-transparent"></div>
 
-              {/* Floating Mini Card 1: Review Snippet */}
-              <div className="absolute bottom-5 left-5 right-5 sm:right-auto sm:max-w-xs bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-white/70 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-powder-pink/50 flex-shrink-0 flex items-center justify-center text-gold">
-                  <i className="fa-solid fa-cake-candles text-lg"></i>
-                </div>
-                <div className="text-xs">
-                  <p className="font-bold text-chocolate">&quot;Kutlamanın yıldızı oldu!&quot;</p>
-                  <div className="flex text-gold text-[10px] my-0.5">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <i key={i} className="fa-solid fa-star"></i>
-                    ))}
+              {/* Floating Mini Card 1: Review Snippet (only when a real review exists) */}
+              {featuredReview && (
+                <div className="absolute bottom-5 left-5 right-5 sm:right-auto sm:max-w-xs bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-white/70 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-powder-pink/50 flex-shrink-0 flex items-center justify-center text-gold">
+                    <i className="fa-solid fa-cake-candles text-lg"></i>
                   </div>
-                  <span className="text-chocolate/60">Selin K. - Doğum Günü Pastası</span>
+                  <div className="text-xs">
+                    <p className="font-bold text-chocolate line-clamp-2">
+                      &quot;{featuredReview.content}&quot;
+                    </p>
+                    <div className="flex text-gold text-[10px] my-0.5">
+                      {Array.from({ length: featuredReview.rating }).map((_, i) => (
+                        <i key={i} className="fa-solid fa-star"></i>
+                      ))}
+                    </div>
+                    <span className="text-chocolate/60">
+                      {featuredReview.customerName}
+                      {featuredReview.categoryName ? ` - ${featuredReview.categoryName}` : ""}
+                    </span>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Floating Mini Badge 2: Handcrafted with Love */}
               <div className="absolute top-5 right-5 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg border border-powder-pink/40 flex items-center gap-1.5 text-xs font-semibold text-chocolate">

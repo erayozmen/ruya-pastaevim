@@ -1,7 +1,8 @@
 import { buildWhatsappHref } from "@/lib/whatsapp";
+import type { SiteSettings } from "@/lib/site-data";
 
-export function MobileWhatsAppButton() {
-  const href = buildWhatsappHref("Merhaba, butik pasta siparişi vermek istiyorum.");
+export function MobileWhatsAppButton({ site }: { site: SiteSettings }) {
+  const href = buildWhatsappHref("Merhaba, butik pasta siparişi vermek istiyorum.", site.whatsappNumber);
 
   return (
     <div className="sm:hidden fixed bottom-5 right-5 z-40">

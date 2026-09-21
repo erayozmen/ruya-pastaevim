@@ -1,9 +1,10 @@
-import { siteConfig } from "@/lib/site-config";
+import type { SiteSettings } from "@/lib/site-data";
 import { buildWhatsappHref } from "@/lib/whatsapp";
 
-export function FinalCTA() {
+export function FinalCTA({ site }: { site: SiteSettings }) {
   const whatsappHref = buildWhatsappHref(
     "Merhaba, özel günümüz için pasta tasarımı konuşmak istiyorum.",
+    site.whatsappNumber,
   );
 
   return (
@@ -45,11 +46,11 @@ export function FinalCTA() {
           </a>
 
           <a
-            href={siteConfig.contact.phoneHref}
+            href={site.phoneHref}
             className="w-full sm:w-auto px-7 py-4 rounded-full bg-white/80 hover:bg-white text-chocolate font-semibold text-base shadow-md transition-all duration-300 flex items-center justify-center gap-2"
           >
             <i className="fa-solid fa-phone text-chocolate/80"></i>
-            <span>{siteConfig.contact.whatsappDisplay}</span>
+            <span>{site.phoneDisplay}</span>
           </a>
         </div>
 
@@ -57,17 +58,17 @@ export function FinalCTA() {
         <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm font-medium text-chocolate/90">
           <div className="flex items-center gap-2">
             <i className="fa-solid fa-location-dot text-chocolate"></i>
-            <span>{siteConfig.contact.address ?? "Konum bilgisi yakında eklenecek"}</span>
+            <span>{site.address ?? "Konum bilgisi yakında eklenecek"}</span>
           </div>
           <span className="hidden sm:inline text-chocolate/30">•</span>
           <div className="flex items-center gap-2">
             <i className="fa-brands fa-whatsapp text-chocolate"></i>
-            <span>WhatsApp: {siteConfig.contact.whatsappDisplay}</span>
+            <span>WhatsApp: {site.phoneDisplay}</span>
           </div>
           <span className="hidden sm:inline text-chocolate/30">•</span>
           <div className="flex items-center gap-2">
             <i className="fa-brands fa-instagram text-chocolate"></i>
-            <span>Instagram: {siteConfig.contact.instagramHandle}</span>
+            <span>Instagram: {site.instagramHandle}</span>
           </div>
         </div>
       </div>

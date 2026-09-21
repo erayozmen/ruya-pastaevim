@@ -2,9 +2,10 @@
 
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { useCustomizer } from "@/context/customizer-context";
-import { categoryCards } from "@/lib/categories-data";
+import { getCategoryCardStyle } from "@/lib/categories-data";
+import type { PublicCategory } from "@/lib/public-queries";
 
-export function CategoriesSection() {
+export function CategoriesSection({ categories }: { categories: PublicCategory[] }) {
   const { setTheme } = useCustomizer();
 
   return (
@@ -23,52 +24,70 @@ export function CategoriesSection() {
           </p>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {categoryCards.map((category) => (
-            <div
-              key={category.slug}
-              className="group bg-white rounded-3xl overflow-hidden border border-powder-pink/40 shadow-sm hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className="relative h-64 overflow-hidden bg-vanilla">
-                <ImageWithFallback
-                  src={category.image}
-                  alt={category.title}
-                  fallbackSrc={`https://placehold.co/600x600/F6C7C9/49352F?text=${encodeURIComponent(
-                    category.title,
-                  )}`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <span className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-chocolate text-xl p-2 rounded-2xl shadow-sm">
-                  {category.emoji}
-                </span>
-                {category.hoverText && (
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                    <span className="text-white text-xs font-medium">{category.hoverText}</span>
+        {categories.length === 0 ? (
+          <p className="text-center text-sm text-chocolate/60">
+            Henüz yayınlanmış kategori bulunmuyor.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {categories.map((category) => {
+              const style = getCategoryCardStyle(category.slug);
+              return (
+                <div
+                  key={category.id}
+                  className="group bg-white rounded-3xl overflow-hidden border border-powder-pink/40 shadow-sm hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div className="relative h-64 overflow-hidden bg-vanilla">
+                    {category.imageUrl ? (
+                      <ImageWithFallback
+                        src={category.imageUrl}
+                        alt={category.name}
+                        fallbackSrc={`https://placehold.co/600x600/F6C7C9/49352F?text=${encodeURIComponent(
+                          category.name,
+                        )}`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-powder-pink/40 via-vanilla to-lavender/40"></div>
+                    )}
+                    {category.emoji && (
+                      <span className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-chocolate text-xl p-2 rounded-2xl shadow-sm">
+                        {category.emoji}
+                      </span>
+                    )}
+                    {style.hoverText && category.imageUrl && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                        <span className="text-white text-xs font-medium">{style.hoverText}</span>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <div className="p-6 text-center">
-                <h3
-                  className={`font-serif text-2xl font-bold text-chocolate transition-colors ${category.titleHoverClass}`}
-                >
-                  {category.title}
-                </h3>
-                <p className="text-chocolate/70 text-xs sm:text-sm mt-2 line-clamp-2">
-                  {category.description}
-                </p>
-                <a
-                  href="#tasarla"
-                  onClick={() => setTheme(category.themeValue)}
-                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-gold hover:text-chocolate uppercase tracking-wider transition-colors"
-                >
-                  <span>Bu Temayı Tasarla</span>
-                  <i className="fa-solid fa-arrow-right text-[10px]"></i>
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
+                  <div className="p-6 text-center">
+                    <h3
+                      className={`font-serif text-2xl font-bold text-chocolate transition-colors ${style.titleHoverClass}`}
+                    >
+                      {category.name}
+                    </h3>
+                    {category.description && (
+                      <p className="text-chocolate/70 text-xs sm:text-sm mt-2 line-clamp-2">
+                        {category.description}
+                      </p>
+                    )}
+                    <a
+                      href="#tasarla"
+                      onClick={() => {
+                        if (style.themeValue) setTheme(style.themeValue);
+                      }}
+                      className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-gold hover:text-chocolate uppercase tracking-wider transition-colors"
+                    >
+                      <span>Bu Temayı Tasarla</span>
+                      <i className="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

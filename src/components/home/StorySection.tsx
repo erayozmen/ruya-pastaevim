@@ -1,7 +1,6 @@
-import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import { siteConfig } from "@/lib/site-config";
+import type { SiteSettings } from "@/lib/site-data";
 
-export function StorySection() {
+export function StorySection({ site }: { site: SiteSettings }) {
   return (
     <section
       id="hikayemiz"
@@ -15,16 +14,15 @@ export function StorySection() {
               {/* Organic frame outline */}
               <div className="absolute inset-0 bg-lavender/50 rounded-3xl rotate-3 transform transition-transform duration-300"></div>
               <div className="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-white">
-                <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80"
-                  alt="Butik pasta şefi atölyesinde hamur yoğururken"
-                  fallbackSrc="https://placehold.co/700x850/DCC9E8/49352F?text=Atölye"
-                  className="w-full h-96 sm:h-[440px] object-cover object-center"
-                />
+                {/* No real atelier/baker photo exists yet, so the frame stays
+                    neutral instead of showing a stock photo of a stranger. */}
+                <div className="w-full h-96 sm:h-[440px] bg-gradient-to-br from-powder-pink/50 via-vanilla to-lavender/50 flex items-center justify-center text-8xl">
+                  👩‍🍳
+                </div>
 
                 <div className="p-4 bg-vanilla text-center border-t border-powder-pink/20">
                   <h4 className="font-serif text-lg font-bold text-chocolate">
-                    {siteConfig.brand.baker}
+                    {site.bakerName}
                   </h4>
                   <p className="font-script text-gold text-lg -mt-1">Kurucu &amp; Pasta Tasarımcısı</p>
                 </div>

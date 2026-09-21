@@ -12,9 +12,14 @@ import { InstagramSection } from "@/components/home/InstagramSection";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { CustomizerProvider } from "@/context/customizer-context";
 import { getCustomizerOptions } from "@/lib/customizer-queries";
+import { getHomePageData } from "@/lib/public-queries";
 
 export default async function Home() {
-  const { options, error: customizerError } = await getCustomizerOptions();
+  const [{ options, error: customizerError }, home] = await Promise.all([
+    getCustomizerOptions(),
+    getHomePageData(),
+  ]);
+  const { site, categories, heroCake, galleryItems, reviews } = home;
 
   const initialState = {
     portion: options.portions[0]?.value ?? "",
@@ -27,25 +32,25 @@ export default async function Home() {
   return (
     <>
       <AnnouncementBar />
-      <Header />
+      <Header site={site} />
 
       <main>
-        <Hero />
-        <StorySection />
+        <Hero site={site} heroCake={heroCake} featuredReview={reviews[0] ?? null} />
+        <StorySection site={site} />
 
         <CustomizerProvider initialState={initialState}>
-          <CategoriesSection />
-          <GallerySection />
-          <CakeCustomizer options={options} error={customizerError} />
+          <CategoriesSection categories={categories} />
+          <GallerySection items={galleryItems} site={site} />
+          <CakeCustomizer options={options} error={customizerError} site={site} />
         </CustomizerProvider>
 
-        <ReviewsSection />
-        <InstagramSection />
-        <FinalCTA />
+        <ReviewsSection reviews={reviews} />
+        <InstagramSection site={site} />
+        <FinalCTA site={site} />
       </main>
 
-      <Footer />
-      <MobileWhatsAppButton />
+      <Footer site={site} />
+      <MobileWhatsAppButton site={site} />
     </>
   );
 }

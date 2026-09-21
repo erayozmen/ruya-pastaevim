@@ -1,7 +1,8 @@
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import { reviews } from "@/lib/reviews-data";
+import type { PublicReview } from "@/lib/public-queries";
+import { accentFor } from "@/lib/site-data";
 
-export function ReviewsSection() {
+export function ReviewsSection({ reviews }: { reviews: PublicReview[] }) {
   return (
     <section id="yorumlar" className="py-20 bg-soft-cream border-t border-powder-pink/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,37 +18,56 @@ export function ReviewsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {reviews.map((review) => (
-            <div
-              key={review.name}
-              className="bg-white rounded-3xl p-6 shadow-sm border border-powder-pink/40 flex flex-col justify-between hover:shadow-md transition-shadow"
-            >
-              <div>
-                <div className="flex text-gold text-sm mb-3">
-                  {Array.from({ length: review.rating }).map((_, i) => (
-                    <i key={i} className="fa-solid fa-star"></i>
-                  ))}
+        {reviews.length === 0 ? (
+          <p className="text-center text-sm text-chocolate/60">
+            Henüz yayınlanmış müşteri yorumu bulunmuyor.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {reviews.map((review, index) => {
+              const accent = accentFor(index);
+              return (
+                <div
+                  key={review.id}
+                  className="bg-white rounded-3xl p-6 shadow-sm border border-powder-pink/40 flex flex-col justify-between hover:shadow-md transition-shadow"
+                >
+                  <div>
+                    <div className="flex text-gold text-sm mb-3">
+                      {Array.from({ length: review.rating }).map((_, i) => (
+                        <i key={i} className="fa-solid fa-star"></i>
+                      ))}
+                    </div>
+                    <p className="text-chocolate/85 text-sm leading-relaxed italic mb-6">
+                      &quot;{review.content}&quot;
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 pt-4 border-t border-chocolate/10">
+                    {review.photoUrl ? (
+                      <ImageWithFallback
+                        src={review.photoUrl}
+                        alt={`Müşteri ${review.customerName}`}
+                        fallbackSrc="https://placehold.co/100x100/F6C7C9/49352F?text=%3A%29"
+                        className={`w-11 h-11 rounded-full object-cover border-2 ${accent.border}`}
+                      />
+                    ) : (
+                      <span
+                        className={`w-11 h-11 rounded-full bg-powder-pink/40 text-chocolate font-bold flex items-center justify-center border-2 ${accent.border}`}
+                      >
+                        {review.customerName.trim().charAt(0).toUpperCase()}
+                      </span>
+                    )}
+                    <div>
+                      <h5 className="font-bold text-sm text-chocolate">{review.customerName}</h5>
+                      {review.categoryName && (
+                        <span className="text-xs text-chocolate/60">{review.categoryName}</span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <p className="text-chocolate/85 text-sm leading-relaxed italic mb-6">
-                  &quot;{review.quote}&quot;
-                </p>
-              </div>
-              <div className="flex items-center gap-3 pt-4 border-t border-chocolate/10">
-                <ImageWithFallback
-                  src={review.avatar}
-                  alt={`Müşteri ${review.name}`}
-                  fallbackSrc="https://placehold.co/100x100/F6C7C9/49352F?text=%3A%29"
-                  className={`w-11 h-11 rounded-full object-cover border-2 ${review.avatarBorderClass}`}
-                />
-                <div>
-                  <h5 className="font-bold text-sm text-chocolate">{review.name}</h5>
-                  <span className="text-xs text-chocolate/60">{review.meta}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -5,13 +5,16 @@ import { useCustomizer } from "@/context/customizer-context";
 import type { CustomizerOptions } from "@/lib/customizer-queries";
 import { buildCustomizerWhatsappUrl } from "@/lib/whatsapp";
 import { createOrderRequest } from "@/lib/order-requests";
+import type { SiteSettings } from "@/lib/site-data";
 
 export function CakeCustomizer({
   options,
   error,
+  site,
 }: {
   options: CustomizerOptions;
   error: string | null;
+  site: SiteSettings;
 }) {
   const { state, setPortion, setTheme, setColor, setFlavor, setNote } = useCustomizer();
   const { portions, themes, colors, flavors } = options;
@@ -59,7 +62,7 @@ export function CakeCustomizer({
         return;
       }
 
-      const whatsappUrl = buildCustomizerWhatsappUrl(state);
+      const whatsappUrl = buildCustomizerWhatsappUrl(state, site);
       setSuccessUrl(whatsappUrl);
       const opened = window.open(whatsappUrl, "_blank");
       if (!opened) {

@@ -1,14 +1,14 @@
-import { siteConfig } from "./site-config";
-
 /**
  * Statik CTA linkleri için WhatsApp href üretir.
  *
  * Orijinal HTML'deki statik `<a href="https://wa.me/...">` linkleriyle
  * birebir aynı encode mantığını korur: sadece boşluklar `%20` ile
  * değiştirilir, Türkçe karakterler ve noktalama olduğu gibi bırakılır.
+ * Numara artık `site_settings.whatsapp_number` üzerinden çağıran tarafından
+ * verilir.
  */
-export function buildWhatsappHref(message: string): string {
-  return `https://wa.me/${siteConfig.contact.whatsappNumber}?text=${message.replace(/ /g, "%20")}`;
+export function buildWhatsappHref(message: string, whatsappNumber: string): string {
+  return `https://wa.me/${whatsappNumber}?text=${message.replace(/ /g, "%20")}`;
 }
 
 /**
@@ -26,9 +26,12 @@ export interface CustomizerWhatsappInput {
   note: string;
 }
 
-export function buildCustomizerWhatsappUrl(input: CustomizerWhatsappInput): string {
+export function buildCustomizerWhatsappUrl(
+  input: CustomizerWhatsappInput,
+  site: { brandName: string; whatsappNumber: string },
+): string {
   const message =
-    `Merhaba ${siteConfig.brand.name}! Siteniz üzerinden hayalimdeki pastayı tasarladım:%0A%0A` +
+    `Merhaba ${site.brandName}! Siteniz üzerinden hayalimdeki pastayı tasarladım:%0A%0A` +
     `🎂 *Kişi Sayısı:* ${input.portion}%0A` +
     `🎀 *Tema:* ${input.theme}%0A` +
     `🎨 *Hakim Renk:* ${input.color}%0A` +
@@ -36,5 +39,5 @@ export function buildCustomizerWhatsappUrl(input: CustomizerWhatsappInput): stri
     `✍️ *Pasta Üzeri Not:* ${input.note.trim() ? input.note : "Belirtilmedi"}%0A%0A` +
     `Müsaitlik durumu ve fiyat teklifi alabilir miyim?`;
 
-  return `https://wa.me/${siteConfig.contact.whatsappNumber}?text=${message}`;
+  return `https://wa.me/${site.whatsappNumber}?text=${message}`;
 }

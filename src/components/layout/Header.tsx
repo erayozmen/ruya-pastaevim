@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { siteConfig } from "@/lib/site-config";
+import type { SiteSettings } from "@/lib/site-data";
 import { buildWhatsappHref } from "@/lib/whatsapp";
 
 const navLinks = [
@@ -11,11 +11,12 @@ const navLinks = [
   { href: "#galeri", label: "En Sevilenler" },
 ];
 
-export function Header() {
+export function Header({ site }: { site: SiteSettings }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const whatsappHref = buildWhatsappHref(
     "Merhaba, özel günümüz için pasta tasarımı hakkında bilgi almak istiyorum.",
+    site.whatsappNumber,
   );
 
   return (
@@ -28,10 +29,10 @@ export function Header() {
           </div>
           <div className="flex flex-col">
             <span className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-chocolate leading-none">
-              {siteConfig.brand.name}
+              {site.brandName}
             </span>
             <span className="font-script text-lg text-gold -mt-1 tracking-wider">
-              {siteConfig.brand.tagline}
+              {site.tagline}
             </span>
           </div>
         </Link>

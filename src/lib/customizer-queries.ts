@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { isOwnMediaUrl } from "@/lib/site-data";
 import { getColorStyle, type ColorOption, type FlavorOption, type PortionOption, type ThemeOption } from "@/lib/customizer-data";
 
 export interface CustomizerOptions {
@@ -52,7 +53,8 @@ export async function getCustomizerOptions(): Promise<CustomizerOptionsResult> {
     value: row.value,
     label: row.label,
     emoji: row.emoji ?? "",
-    image: row.image_url ?? "",
+    // Seed rows carry Unsplash stock URLs; only the project's own Storage images are shown.
+    image: isOwnMediaUrl(row.image_url) ? row.image_url : "",
   }));
 
   const colors: ColorOption[] = (colorsRes.data ?? []).map((row) => {

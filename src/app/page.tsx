@@ -11,8 +11,19 @@ import { ReviewsSection } from "@/components/home/ReviewsSection";
 import { InstagramSection } from "@/components/home/InstagramSection";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { CustomizerProvider } from "@/context/customizer-context";
+import { getCustomizerOptions } from "@/lib/customizer-queries";
 
-export default function Home() {
+export default async function Home() {
+  const { options, error: customizerError } = await getCustomizerOptions();
+
+  const initialState = {
+    portion: options.portions[0]?.value ?? "",
+    theme: options.themes[0]?.value ?? "",
+    color: options.colors[0]?.value ?? "",
+    flavor: options.flavors[0]?.value ?? "",
+    note: "",
+  };
+
   return (
     <>
       <AnnouncementBar />
@@ -22,10 +33,10 @@ export default function Home() {
         <Hero />
         <StorySection />
 
-        <CustomizerProvider>
+        <CustomizerProvider initialState={initialState}>
           <CategoriesSection />
           <GallerySection />
-          <CakeCustomizer />
+          <CakeCustomizer options={options} error={customizerError} />
         </CustomizerProvider>
 
         <ReviewsSection />

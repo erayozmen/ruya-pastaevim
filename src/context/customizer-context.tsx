@@ -30,8 +30,15 @@ const CustomizerContext = createContext<CustomizerContextValue | null>(null);
  * programatik olarak tıklayan kod) burada aynı state'i paylaşarak
  * customizer'daki tema seçimini günceller.
  */
-export function CustomizerProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<CustomizerState>(defaultCustomizerState);
+export function CustomizerProvider({
+  children,
+  initialState,
+}: {
+  children: ReactNode;
+  /** Computed server-side from the currently active Supabase options, when available. */
+  initialState?: CustomizerState;
+}) {
+  const [state, setState] = useState<CustomizerState>(initialState ?? defaultCustomizerState);
 
   const value = useMemo<CustomizerContextValue>(
     () => ({

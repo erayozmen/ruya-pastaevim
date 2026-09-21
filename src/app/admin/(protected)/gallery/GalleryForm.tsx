@@ -24,8 +24,8 @@ export function GalleryForm({
   return (
     <form action={formAction} className="flex max-w-xl flex-col gap-4">
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="title" className="text-sm font-medium text-neutral-700">Başlık *</label>
-        <input id="title" name="title" type="text" required defaultValue={item?.title} className={inputClass} />
+        <label htmlFor="title" className="text-sm font-medium text-neutral-700">Başlık (isteğe bağlı)</label>
+        <input id="title" name="title" type="text" defaultValue={item?.title} className={inputClass} />
       </div>
 
       <div className="flex flex-col gap-1.5">

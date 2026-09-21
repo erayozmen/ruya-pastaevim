@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { deleteMediaIfUnreferenced } from "@/lib/media-references";
 
 const BUCKET = "media";
 
@@ -120,29 +121,7 @@ export type DeleteResult = { error?: string; success?: boolean };
 
 export async function deleteMedia(path: string): Promise<DeleteResult> {
   const supabase = await createClient();
-  const { data: publicUrlData } = supabase.storage.from(BUCKET).getPublicUrl(path);
-  const publicUrl = publicUrlData.publicUrl;
-
-  const [categoryRef, cakeRef, cakeImageRef, galleryRef, reviewRef] = await Promise.all([
-    supabase.from("categories").select("id", { count: "exact", head: true }).eq("image_url", publicUrl),
-    supabase.from("cakes").select("id", { count: "exact", head: true }).eq("main_image_url", publicUrl),
-    supabase.from("cake_images").select("id", { count: "exact", head: true }).eq("image_url", publicUrl),
-    supabase.from("gallery_items").select("id", { count: "exact", head: true }).eq("image_url", publicUrl),
-    supabase.from("reviews").select("id", { count: "exact", head: true }).eq("photo_url", publicUrl),
-  ]);
-
-  const totalReferences =
-    (categoryRef.count ?? 0) + (cakeRef.count ?? 0) + (cakeImageRef.count ?? 0) + (galleryRef.count ?? 0) + (reviewRef.count ?? 0);
-
-  if (totalReferences > 0) {
-    return { error: "Bu görsel şu içeriklerde kullanılıyor, önce bağlantıyı kaldırın." };
-  }
-
-  const { error } = await supabase.storage.from(BUCKET).remove([path]);
-  if (error) {
-    return { error: `Silinemedi: ${error.message}` };
-  }
-
-  revalidatePath("/admin/media");
-  return { success: true };
+  const result = await deleteMediaIfUnreferenced(supabase, BUCKET, path);
+  if (result.success) revalidatePath("/admin/media");
+  return result;
 }

@@ -64,6 +64,9 @@ export interface PublicReview {
   categoryName: string | null;
 }
 
+/** One full masonry rhythm is 6 items; the homepage shows two. */
+const HOME_GALLERY_LIMIT = 12;
+
 export interface HomePageData {
   site: SiteSettings;
   categories: PublicCategory[];
@@ -211,12 +214,16 @@ async function getHeroCake(supabase: Supabase): Promise<PublicCake | null> {
 async function getGalleryItems(
   supabase: Supabase,
   categoryNames: Map<string, string>,
+  limit?: number,
 ): Promise<PublicGalleryItem[]> {
-  const { data, error } = await supabase
+  let query = supabase
     .from("gallery_items")
     .select("id, title, description, image_url, category_id")
     .eq("is_active", true)
-    .order("sort_order", { ascending: true });
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+  if (limit) query = query.limit(limit);
+  const { data, error } = await query;
   logError("gallery_items", error);
 
   return (data ?? []).map((row) => ({
@@ -267,7 +274,7 @@ export async function getHomePageData(): Promise<HomePageData> {
   const categoryNames = new Map(allCategories.map((category) => [category.id, category.name]));
 
   const [galleryItems, reviews, pastryProducts] = await Promise.all([
-    getGalleryItems(supabase, categoryNames),
+    getGalleryItems(supabase, categoryNames, HOME_GALLERY_LIMIT),
     getReviews(supabase, categoryNames),
     getPublicCakes({ group: "pastry", limit: 6 }),
   ]);

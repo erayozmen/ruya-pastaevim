@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: "/admin/categories", label: "Kategoriler" },
   { href: "/admin/cakes", label: "Ürünler" },
   { href: "/admin/gallery", label: "Galeri" },
+  { href: "/admin/reviews", label: "Yorumlar" },
   { href: "/admin/media", label: "Medya" },
 ] as const;
 

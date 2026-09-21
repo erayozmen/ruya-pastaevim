@@ -26,7 +26,6 @@ function parseGalleryForm(formData: FormData) {
 }
 
 function validate(values: TablesInsert<"gallery_items">): string | undefined {
-  if (!values.title) return "Başlık zorunludur.";
   if (!values.image_url) return "Medya Kütüphanesi'nden bir görsel seçin.";
   return undefined;
 }

@@ -1,6 +1,7 @@
 import "server-only";
 
-const API_VERSION = "v25.0";
+const API_BASE = "https://graph.instagram.com/v25.0";
+const CACHE_SECONDS = 3600;
 
 export interface InstagramPost {
   id: string;
@@ -11,52 +12,66 @@ export interface InstagramPost {
 
 interface GraphMedia {
   id: string;
-  caption?: string;
   media_type: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
   media_url?: string;
   thumbnail_url?: string;
-  permalink: string;
+  permalink?: string;
+}
+
+async function graphGet<T>(path: string, params: Record<string, string>, token: string): Promise<T | null> {
+  const url = new URL(`${API_BASE}${path}`);
+  for (const [key, value] of Object.entries(params)) url.searchParams.set(key, value);
+  url.searchParams.set("access_token", token);
+
+  const response = await fetch(url, { next: { revalidate: CACHE_SECONDS } });
+  if (!response.ok) {
+    console.error(`[instagram] ${path} responded ${response.status}`);
+    return null;
+  }
+  return (await response.json()) as T;
 }
 
 /**
- * Latest posts of the business account via the official Instagram API
- * (Instagram Login, `graph.instagram.com/v25.0/me/media`; needs the
- * instagram_business_basic permission on a professional account). Needs a long-lived
- * token (60-day validity, refreshable via /refresh_access_token after 24h)
- * in the server-only env var INSTAGRAM_ACCESS_TOKEN (never
- * NEXT_PUBLIC_, never committed). Without a token — or on any API error —
- * this returns [] and the section shows the profile link instead. Nothing
- * is ever fabricated.
+ * Latest posts of the business account via the official Instagram API with
+ * Instagram Login (Meta docs: graph.instagram.com/v25.0). Flow per the docs:
+ * GET /me?fields=user_id gives the professional account id, then
+ * GET /{IG_ID}/media lists its media. The token is a long-lived Instagram
+ * User access token (60 days, refreshable after 24h via /refresh_access_token)
+ * kept in the server-only env var INSTAGRAM_ACCESS_TOKEN — never NEXT_PUBLIC_,
+ * never committed. Responses are cached for an hour. Without a token, or on
+ * any API error, this returns [] and the section shows the profile link.
+ * `media_url` is omitted by Meta for copyrighted media and `thumbnail_url`
+ * only exists for videos; posts without a usable image are skipped.
  */
 export async function getInstagramPosts(limit = 6): Promise<InstagramPost[]> {
   const token = process.env.INSTAGRAM_ACCESS_TOKEN;
   if (!token) return [];
 
   try {
-    const url = new URL(`https://graph.instagram.com/${API_VERSION}/me/media`);
-    url.searchParams.set("fields", "id,caption,media_type,media_url,thumbnail_url,permalink");
-    url.searchParams.set("limit", String(limit));
-    url.searchParams.set("access_token", token);
+    const me = await graphGet<{ user_id?: string; id?: string }>("/me", { fields: "user_id" }, token);
+    const igId = me?.user_id ?? me?.id;
+    if (!igId) return [];
 
-    const response = await fetch(url, { next: { revalidate: 3600 } });
-    if (!response.ok) {
-      console.error(`[instagram] API responded ${response.status}`);
-      return [];
-    }
-    const body = (await response.json()) as { data?: GraphMedia[] };
+    const body = await graphGet<{ data?: GraphMedia[] }>(
+      `/${igId}/media`,
+      { fields: "id,media_type,media_url,thumbnail_url,permalink", limit: String(limit * 2) },
+      token,
+    );
 
-    return (body.data ?? []).flatMap((media) => {
-      const imageUrl = media.media_type === "VIDEO" ? media.thumbnail_url : media.media_url;
-      if (!imageUrl) return [];
-      return [
-        {
-          id: media.id,
-          imageUrl,
-          permalink: media.permalink,
-          alt: media.caption?.slice(0, 120) || "Instagram paylaşımı",
-        },
-      ];
-    });
+    return (body?.data ?? [])
+      .flatMap((media) => {
+        const imageUrl = media.media_type === "VIDEO" ? media.thumbnail_url : media.media_url;
+        if (!imageUrl || !media.permalink) return [];
+        return [
+          {
+            id: media.id,
+            imageUrl,
+            permalink: media.permalink,
+            alt: "Rüya Pasta Evim Instagram paylaşımı",
+          },
+        ];
+      })
+      .slice(0, limit);
   } catch (error) {
     console.error("[instagram] fetch failed", error instanceof Error ? error.message : error);
     return [];

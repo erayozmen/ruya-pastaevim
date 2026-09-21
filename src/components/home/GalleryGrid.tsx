@@ -33,7 +33,7 @@ export function GalleryGrid({ items, site }: { items: PublicGalleryItem[]; site:
           >
             <ImageWithFallback
               src={item.imageUrl}
-              alt={item.title}
+              alt={item.title || "Rüya Pasta Evim pasta çalışması"}
               className={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${
                 tall ? "h-full min-h-[360px]" : "h-72"
               }`}
@@ -44,10 +44,12 @@ export function GalleryGrid({ items, site }: { items: PublicGalleryItem[]; site:
                   {item.categoryName}
                 </span>
               )}
-              <h4 className="font-serif text-xl font-bold">{item.title}</h4>
+              {item.title && <h4 className="font-serif text-xl font-bold">{item.title}</h4>}
               <a
                 href={buildWhatsappHref(
-                  `Merhaba, sitenizdeki '${item.title}' hakkında bilgi alabilir miyim?`,
+                  item.title
+                    ? `Merhaba, sitenizdeki '${item.title}' hakkında bilgi alabilir miyim?`
+                    : "Merhaba, sitenizdeki galeride gördüğüm bir pasta hakkında bilgi alabilir miyim?",
                   site.whatsappNumber,
                 )}
                 target="_blank"

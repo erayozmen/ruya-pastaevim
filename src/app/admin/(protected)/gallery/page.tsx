@@ -44,7 +44,7 @@ export default async function AdminGalleryPage({ searchParams }: PageProps<"/adm
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={item.image_url} alt="" loading="lazy" className="h-12 w-12 rounded object-cover" />
                 </td>
-                <td className="px-4 py-3 font-medium text-neutral-900">{item.title}</td>
+                <td className="px-4 py-3 font-medium text-neutral-900">{item.title || "—"}</td>
                 <td className="px-4 py-3 text-neutral-500">{item.is_active ? "Aktif" : "Pasif"}</td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-3">

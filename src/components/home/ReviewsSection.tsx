@@ -11,7 +11,7 @@ export function ReviewsSection({ reviews }: { reviews: PublicReview[] }) {
             Gülümseten Hatıralar
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate tracking-tight mt-1">
-            Kutlamalardan Yansıyan Mutluluk
+            Müşterilerimizin Yorumları
           </h2>
           <p className="text-chocolate/70 text-sm sm:text-base mt-2">
             En güzel günlerinizin bir parçası olmak bizim için en büyük ödül.

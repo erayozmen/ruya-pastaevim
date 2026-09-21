@@ -529,6 +529,10 @@ export type Database = {
     }
     Functions: {
       is_admin: { Args: never; Returns: boolean }
+      admin_replace_cake_images: {
+        Args: { p_cake_id: string; p_image_urls: string[] }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "ADMIN"

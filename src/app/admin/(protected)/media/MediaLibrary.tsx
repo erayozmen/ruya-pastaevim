@@ -2,16 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { deleteMedia, uploadMedia } from "./actions";
-
-export type MediaItem = {
-  name: string;
-  path: string;
-  publicUrl: string;
-  size: number | null;
-  mimetype: string | null;
-  updatedAt: string | null;
-};
+import { deleteMedia, uploadMedia, type MediaItem } from "./actions";
 
 function formatBytes(bytes: number | null): string {
   if (bytes === null) return "—";
@@ -127,22 +118,27 @@ function MediaCard({
         </button>
 
         {confirming ? (
-          <div className="flex flex-1 items-center gap-1">
-            <button
-              type="button"
-              onClick={handleDelete}
-              disabled={deleting}
-              className="flex-1 rounded-md bg-red-600 px-2 py-1 text-xs font-medium text-white hover:bg-red-700 disabled:opacity-60"
-            >
-              {deleting ? "Siliniyor..." : "Emin misin?"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setConfirming(false)}
-              className="rounded-md border border-neutral-300 px-2 py-1 text-xs text-neutral-700"
-            >
-              Vazgeç
-            </button>
+          <div className="flex flex-1 flex-col gap-1">
+            <p className="text-[11px] font-medium text-red-700">
+              Bu, Storage&apos;daki gerçek dosyayı kalıcı olarak siler.
+            </p>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={handleDelete}
+                disabled={deleting}
+                className="flex-1 rounded-md bg-red-600 px-2 py-1 text-xs font-medium text-white hover:bg-red-700 disabled:opacity-60"
+              >
+                {deleting ? "Siliniyor..." : "Evet, kalıcı olarak sil"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setConfirming(false)}
+                className="rounded-md border border-neutral-300 px-2 py-1 text-xs text-neutral-700"
+              >
+                Vazgeç
+              </button>
+            </div>
           </div>
         ) : (
           <button

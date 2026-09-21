@@ -47,6 +47,17 @@ function validateCake(values: ReturnType<typeof parseCakeForm>): string | undefi
   return undefined;
 }
 
+function parseGalleryImageUrls(formData: FormData): string[] {
+  const raw = String(formData.get("gallery_image_urls") ?? "[]");
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((url): url is string => typeof url === "string" && url.length > 0);
+  } catch {
+    return [];
+  }
+}
+
 export async function createCake(_prevState: FormState, formData: FormData): Promise<FormState> {
   const values = parseCakeForm(formData);
   const validationError = validateCake(values);
@@ -66,7 +77,9 @@ export async function createCake(_prevState: FormState, formData: FormData): Pro
     is_active: values.is_active,
   };
 
-  const { error } = await supabase.from("cakes").insert(payload);
+  const galleryImageUrls = parseGalleryImageUrls(formData);
+
+  const { data: inserted, error } = await supabase.from("cakes").insert(payload).select("id").single();
 
   if (error) {
     if (error.code === "23505") {
@@ -79,6 +92,21 @@ export async function createCake(_prevState: FormState, formData: FormData): Pro
       return { error: "Fiyat 0 veya daha büyük olmalıdır." };
     }
     return { error: `Pasta oluşturulamadı: ${error.message}` };
+  }
+
+  if (galleryImageUrls.length > 0) {
+    const { error: imagesError } = await supabase.rpc("admin_replace_cake_images", {
+      p_cake_id: inserted.id,
+      p_image_urls: galleryImageUrls,
+    });
+    if (imagesError) {
+      revalidatePath("/admin/cakes");
+      redirect(
+        `/admin/cakes/${inserted.id}/edit?error=${encodeURIComponent(
+          `Pasta kaydedildi ama galeri görselleri kaydedilemedi: ${imagesError.message}. Buradan tekrar ekleyebilirsiniz.`,
+        )}`,
+      );
+    }
   }
 
   revalidatePath("/admin/cakes");
@@ -104,6 +132,8 @@ export async function updateCake(id: string, _prevState: FormState, formData: Fo
     is_active: values.is_active,
   };
 
+  const galleryImageUrls = parseGalleryImageUrls(formData);
+
   const { error } = await supabase.from("cakes").update(payload).eq("id", id);
 
   if (error) {
@@ -117,6 +147,16 @@ export async function updateCake(id: string, _prevState: FormState, formData: Fo
       return { error: "Fiyat 0 veya daha büyük olmalıdır." };
     }
     return { error: `Pasta güncellenemedi: ${error.message}` };
+  }
+
+  // Always replace, even with an empty array — otherwise removing every
+  // gallery image down to zero on the form would have no effect.
+  const { error: imagesError } = await supabase.rpc("admin_replace_cake_images", {
+    p_cake_id: id,
+    p_image_urls: galleryImageUrls,
+  });
+  if (imagesError) {
+    return { error: `Pasta güncellendi ama galeri görselleri kaydedilemedi: ${imagesError.message}` };
   }
 
   revalidatePath("/admin/cakes");

@@ -1,8 +1,9 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import type { Tables } from "@/lib/database/helpers";
 import type { FormState } from "./actions";
+import { MediaPicker } from "../media/MediaPicker";
 
 type Action = (state: FormState, formData: FormData) => Promise<FormState>;
 
@@ -10,12 +11,30 @@ export function CakeForm({
   action,
   cake,
   categories,
+  initialGalleryUrls = [],
 }: {
   action: Action;
   cake?: Tables<"cakes">;
   categories: Pick<Tables<"categories">, "id" | "name">[];
+  initialGalleryUrls?: string[];
 }) {
   const [state, formAction, pending] = useActionState(action, undefined);
+  const [mainImageUrl, setMainImageUrl] = useState<string | null>(cake?.main_image_url ?? null);
+  const [galleryUrls, setGalleryUrls] = useState<string[]>(initialGalleryUrls);
+
+  const moveGalleryImage = (index: number, direction: -1 | 1) => {
+    setGalleryUrls((prev) => {
+      const next = [...prev];
+      const target = index + direction;
+      if (target < 0 || target >= next.length) return prev;
+      [next[index], next[target]] = [next[target], next[index]];
+      return next;
+    });
+  };
+
+  const removeGalleryImage = (url: string) => {
+    setGalleryUrls((prev) => prev.filter((u) => u !== url));
+  };
 
   return (
     <form action={formAction} className="flex max-w-xl flex-col gap-4">
@@ -83,16 +102,91 @@ export function CakeForm({
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="main_image_url" className="text-sm font-medium text-neutral-700">
-          Görsel URL
-        </label>
-        <input
-          id="main_image_url"
-          name="main_image_url"
-          type="url"
-          defaultValue={cake?.main_image_url ?? ""}
-          className="rounded-md border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-500"
-        />
+        <span className="text-sm font-medium text-neutral-700">Ana Görsel</span>
+        <input type="hidden" name="main_image_url" value={mainImageUrl ?? ""} />
+        <div className="flex items-center gap-3">
+          {mainImageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={mainImageUrl}
+              alt="Ana görsel"
+              className="h-20 w-20 rounded-md border border-neutral-200 object-cover"
+            />
+          ) : (
+            <div className="flex h-20 w-20 items-center justify-center rounded-md border border-dashed border-neutral-300 text-xs text-neutral-400">
+              Yok
+            </div>
+          )}
+          <div className="flex flex-col gap-2">
+            <MediaPicker
+              multiple={false}
+              selected={mainImageUrl ? [mainImageUrl] : []}
+              onConfirm={(urls) => urls[0] && setMainImageUrl(urls[0])}
+              triggerLabel={mainImageUrl ? "Değiştir" : "Ana Görsel Seç"}
+            />
+            {mainImageUrl && (
+              <button
+                type="button"
+                onClick={() => setMainImageUrl(null)}
+                className="text-left text-xs text-red-600 hover:underline"
+              >
+                Kaldır
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <span className="text-sm font-medium text-neutral-700">Galeri Görselleri</span>
+        <input type="hidden" name="gallery_image_urls" value={JSON.stringify(galleryUrls)} />
+
+        {galleryUrls.length > 0 && (
+          <div className="flex flex-col gap-2">
+            {galleryUrls.map((url, index) => (
+              <div
+                key={url}
+                className="flex items-center gap-3 rounded-md border border-neutral-200 p-2"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={url} alt="" className="h-12 w-12 rounded object-cover" />
+                <span className="flex-1 truncate text-xs text-neutral-500">{url}</span>
+                <button
+                  type="button"
+                  onClick={() => moveGalleryImage(index, -1)}
+                  disabled={index === 0}
+                  className="text-xs text-neutral-500 disabled:opacity-30"
+                >
+                  ↑
+                </button>
+                <button
+                  type="button"
+                  onClick={() => moveGalleryImage(index, 1)}
+                  disabled={index === galleryUrls.length - 1}
+                  className="text-xs text-neutral-500 disabled:opacity-30"
+                >
+                  ↓
+                </button>
+                <button
+                  type="button"
+                  onClick={() => removeGalleryImage(url)}
+                  className="text-xs text-red-600 hover:underline"
+                >
+                  Kaldır
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div>
+          <MediaPicker
+            multiple={true}
+            selected={galleryUrls}
+            onConfirm={(urls) => setGalleryUrls((prev) => [...prev, ...urls])}
+            triggerLabel="Görsel Ekle"
+          />
+        </div>
       </div>
 
       <div className="flex gap-4">

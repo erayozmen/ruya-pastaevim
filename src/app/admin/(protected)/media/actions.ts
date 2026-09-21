@@ -31,6 +31,40 @@ function sanitizeFilename(name: string): string {
   return safeBase + ext;
 }
 
+export type MediaItem = {
+  name: string;
+  path: string;
+  publicUrl: string;
+  size: number | null;
+  mimetype: string | null;
+  updatedAt: string | null;
+};
+
+export async function listMediaItems(area: string = "cakes"): Promise<MediaItem[]> {
+  if (!isMediaArea(area)) return [];
+
+  const supabase = await createClient();
+  const { data: objects } = await supabase.storage.from(BUCKET).list(area, {
+    limit: 500,
+    sortBy: { column: "name", order: "asc" },
+  });
+
+  return (objects ?? [])
+    .filter((object) => object.id !== null)
+    .map((object) => {
+      const path = `${area}/${object.name}`;
+      const { data: publicUrlData } = supabase.storage.from(BUCKET).getPublicUrl(path);
+      return {
+        name: object.name,
+        path,
+        publicUrl: publicUrlData.publicUrl,
+        size: object.metadata?.size ?? null,
+        mimetype: object.metadata?.mimetype ?? null,
+        updatedAt: object.updated_at ?? null,
+      };
+    });
+}
+
 export type UploadState = { error?: string; success?: string } | undefined;
 
 export async function uploadMedia(_prevState: UploadState, formData: FormData): Promise<UploadState> {

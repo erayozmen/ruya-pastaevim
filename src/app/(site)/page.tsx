@@ -38,8 +38,8 @@ export default async function Home() {
           <CakeCustomizer options={options} error={customizerError} site={site} />
         </CustomizerProvider>
 
-        <ReviewsSection reviews={reviews} />
         <InstagramSection site={site} />
+        <ReviewsSection reviews={reviews} />
         <FinalCTA site={site} />
     </>
   );

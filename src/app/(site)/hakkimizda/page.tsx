@@ -43,7 +43,6 @@ export default async function AboutPage() {
           />
 
           <div className="mt-14 rounded-3xl bg-gradient-to-br from-powder-pink/40 via-vanilla to-lavender/40 border border-powder-pink/40 shadow-sm p-10 text-center">
-            <div className="text-5xl mb-4">👩‍🍳</div>
             {site.bakerName && (
               <p className="font-serif text-2xl font-bold text-chocolate">{site.bakerName}</p>
             )}

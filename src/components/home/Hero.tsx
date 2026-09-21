@@ -108,8 +108,8 @@ export function Hero({
                   className="w-full h-full object-cover object-center"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-powder-pink/60 via-vanilla to-lavender/50 flex items-center justify-center text-7xl text-gold/70">
-                  <i className="fa-solid fa-cake-candles"></i>
+                <div className="w-full h-full bg-gradient-to-br from-powder-pink/60 via-vanilla to-lavender/50 flex items-center justify-center">
+                  <span className="font-script text-5xl text-gold/80 text-center px-6">{site.brandName}</span>
                 </div>
               )}
 

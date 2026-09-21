@@ -1,5 +1,7 @@
 import "server-only";
 
+const API_VERSION = "v25.0";
+
 export interface InstagramPost {
   id: string;
   imageUrl: string;
@@ -18,8 +20,10 @@ interface GraphMedia {
 
 /**
  * Latest posts of the business account via the official Instagram API
- * (Instagram Login, `graph.instagram.com/me/media`). Needs a long-lived
- * token in the server-only env var INSTAGRAM_ACCESS_TOKEN (never
+ * (Instagram Login, `graph.instagram.com/v25.0/me/media`; needs the
+ * instagram_business_basic permission on a professional account). Needs a long-lived
+ * token (60-day validity, refreshable via /refresh_access_token after 24h)
+ * in the server-only env var INSTAGRAM_ACCESS_TOKEN (never
  * NEXT_PUBLIC_, never committed). Without a token — or on any API error —
  * this returns [] and the section shows the profile link instead. Nothing
  * is ever fabricated.
@@ -29,7 +33,7 @@ export async function getInstagramPosts(limit = 6): Promise<InstagramPost[]> {
   if (!token) return [];
 
   try {
-    const url = new URL("https://graph.instagram.com/me/media");
+    const url = new URL(`https://graph.instagram.com/${API_VERSION}/me/media`);
     url.searchParams.set("fields", "id,caption,media_type,media_url,thumbnail_url,permalink");
     url.searchParams.set("limit", String(limit));
     url.searchParams.set("access_token", token);

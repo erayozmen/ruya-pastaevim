@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import { buildOpenGraph } from "@/lib/metadata";
 import { PageIntro } from "@/components/public/PageIntro";
 import { getSiteSettings } from "@/lib/public-queries";
 import { buildWhatsappHref } from "@/lib/whatsapp";
 
+const description = "Rüya Pasta Evim iletişim bilgileri.";
+
 export const metadata: Metadata = {
   title: "İletişim",
-  description: "Rüya Pasta Evim iletişim bilgileri.",
+  description,
+  alternates: { canonical: "/iletisim" },
+  openGraph: buildOpenGraph({ title: "İletişim", description, path: "/iletisim" }),
 };
 
 export default async function ContactPage() {

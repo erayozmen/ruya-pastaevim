@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CakeListing } from "@/components/public/CakeListing";
 import { PageIntro } from "@/components/public/PageIntro";
+import { buildOpenGraph } from "@/lib/metadata";
 import {
   getPublicCakes,
   getPublicCategories,
@@ -13,7 +14,19 @@ export async function generateMetadata({
 }: PageProps<"/pastalar/[category]">): Promise<Metadata> {
   const { category: slug } = await params;
   const category = await getPublicCategoryBySlug(slug);
-  return category?.group === "cake" ? { title: category.name } : { title: "Kategori bulunamadı" };
+  if (!category || category.group !== "cake") return { title: "Kategori bulunamadı" };
+
+  return {
+    title: category.name,
+    description: category.description ?? undefined,
+    alternates: { canonical: `/pastalar/${category.slug}` },
+    openGraph: buildOpenGraph({
+      title: category.name,
+      description: category.description ?? undefined,
+      path: `/pastalar/${category.slug}`,
+      imageUrl: category.imageUrl,
+    }),
+  };
 }
 
 export default async function CategoryCakesPage({ params }: PageProps<"/pastalar/[category]">) {

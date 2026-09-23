@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import { buildOpenGraph } from "@/lib/metadata";
 import { CakeListing } from "@/components/public/CakeListing";
 import { PageIntro } from "@/components/public/PageIntro";
 import { getPublicCakes, getPublicCategories } from "@/lib/public-queries";
 
+const description = "Yayındaki pastalarımız.";
+
 export const metadata: Metadata = {
   title: "Pastalar",
-  description: "Yayındaki pastalarımız.",
+  description,
+  alternates: { canonical: "/pastalar" },
+  openGraph: buildOpenGraph({ title: "Pastalar", description, path: "/pastalar" }),
 };
 
 export default async function CakesPage() {

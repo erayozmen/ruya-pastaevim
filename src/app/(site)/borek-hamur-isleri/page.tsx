@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import { buildOpenGraph } from "@/lib/metadata";
 import { CakeListing } from "@/components/public/CakeListing";
 import { PageIntro } from "@/components/public/PageIntro";
 import { getPublicCakes, getPublicCategories } from "@/lib/public-queries";
 
+const description = "Börek ve hamur işleri.";
+
 export const metadata: Metadata = {
   title: "Börek & Hamur İşleri",
-  description: "Börek ve hamur işleri.",
+  description,
+  alternates: { canonical: "/borek-hamur-isleri" },
+  openGraph: buildOpenGraph({ title: "Börek & Hamur İşleri", description, path: "/borek-hamur-isleri" }),
 };
 
 export default async function PastryPage() {

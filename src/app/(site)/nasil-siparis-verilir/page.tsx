@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import { buildOpenGraph } from "@/lib/metadata";
 import Link from "next/link";
 import { PageIntro } from "@/components/public/PageIntro";
 import { getSiteSettings } from "@/lib/public-queries";
 
+const description = "Sipariş talebi oluşturma adımları.";
+
 export const metadata: Metadata = {
   title: "Nasıl Sipariş Verilir?",
-  description: "Sipariş talebi oluşturma adımları.",
+  description,
+  alternates: { canonical: "/nasil-siparis-verilir" },
+  openGraph: buildOpenGraph({ title: "Nasıl Sipariş Verilir?", description, path: "/nasil-siparis-verilir" }),
 };
 
 const steps = [

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Plus_Jakarta_Sans, Sacramento } from "next/font/google";
+import { buildOpenGraph } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site-config";
+import { SITE_URL } from "@/lib/site-url";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -25,13 +27,21 @@ const sacramento = Sacramento({
   display: "swap",
 });
 
+const defaultTitle = `${siteConfig.brand.name} | Butik Pasta, Börek & Hamur İşleri`;
+const defaultDescription =
+  "Doğum günleri, söz & nişan, baby shower ve en özel kutlamalarınız için size özel tasarlanan butik pastalar.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: `${siteConfig.brand.name} | Butik Pasta, Börek & Hamur İşleri`,
+    default: defaultTitle,
     template: `%s | ${siteConfig.brand.name}`,
   },
-  description:
-    "Doğum günleri, söz & nişan, baby shower ve en özel kutlamalarınız için size özel tasarlanan butik pastalar.",
+  description: defaultDescription,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: buildOpenGraph({ title: defaultTitle, description: defaultDescription, path: "/" }),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

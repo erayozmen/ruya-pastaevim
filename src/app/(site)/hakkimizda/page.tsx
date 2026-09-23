@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import { buildOpenGraph } from "@/lib/metadata";
 import Link from "next/link";
 import { PageIntro } from "@/components/public/PageIntro";
 import { getSiteSettings } from "@/lib/public-queries";
 
+const description = "Rüya Pasta Evim hakkında.";
+
 export const metadata: Metadata = {
   title: "Hikayemiz",
-  description: "Rüya Pasta Evim hakkında.",
+  description,
+  alternates: { canonical: "/hakkimizda" },
+  openGraph: buildOpenGraph({ title: "Hikayemiz", description, path: "/hakkimizda" }),
 };
 
 export default async function AboutPage() {

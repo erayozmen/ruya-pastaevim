@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import { buildOpenGraph } from "@/lib/metadata";
 import { GalleryGrid } from "@/components/home/GalleryGrid";
 import { PageIntro } from "@/components/public/PageIntro";
 import { getPublicGalleryItems, getSiteSettings } from "@/lib/public-queries";
 
+const description = "Rüya Pasta Evim'den gerçek pasta fotoğrafları.";
+
 export const metadata: Metadata = {
   title: "Galeri",
-  description: "Galeri.",
+  description,
+  alternates: { canonical: "/galeri" },
+  openGraph: buildOpenGraph({ title: "Galeri", description, path: "/galeri" }),
 };
 
 export default async function GalleryPage() {

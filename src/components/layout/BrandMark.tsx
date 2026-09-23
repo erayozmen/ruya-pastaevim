@@ -1,6 +1,12 @@
-import { BRAND_LOGO_SRC } from "@/lib/brand";
+import Image from "next/image";
+import { BRAND_LOGO_HEIGHT, BRAND_LOGO_SRC, BRAND_LOGO_WIDTH } from "@/lib/brand";
 
-/** Logo image when a logo asset is configured, otherwise the brand name as text. */
+/**
+ * Header shows the logo image when a logo asset is configured (it already
+ * carries the brand name, baker name and tagline), otherwise the brand name
+ * as text. The footer always stays text-only: it sits on a dark background
+ * the logo's own light backdrop isn't designed for.
+ */
 export function BrandMark({
   name,
   variant,
@@ -10,13 +16,15 @@ export function BrandMark({
   variant: "header" | "footer";
   className?: string;
 }) {
-  if (BRAND_LOGO_SRC) {
+  if (BRAND_LOGO_SRC && variant === "header") {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
+      <Image
         src={BRAND_LOGO_SRC}
         alt={name}
-        className={`${variant === "header" ? "h-11 sm:h-12" : "h-10"} w-auto ${className}`}
+        width={BRAND_LOGO_WIDTH}
+        height={BRAND_LOGO_HEIGHT}
+        priority
+        className={`w-40 sm:w-44 lg:w-52 h-auto object-contain ${className}`}
       />
     );
   }

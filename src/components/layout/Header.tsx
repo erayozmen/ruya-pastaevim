@@ -25,9 +25,8 @@ export function Header({ site }: { site: SiteSettings }) {
     <header className="sticky top-0 z-50 bg-vanilla/90 backdrop-blur-md border-b border-powder-pink/30 transition-all duration-300">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="group flex flex-col" aria-label={site.brandName}>
+        <Link href="/" className="group flex items-center" aria-label={site.brandName}>
           <BrandMark name={site.brandName} variant="header" />
-          <span className="font-script text-lg text-gold mt-0.5 tracking-wider">{site.tagline}</span>
         </Link>
 
         {/* Desktop Nav Links */}

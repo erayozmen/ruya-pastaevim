@@ -14,11 +14,15 @@ export function StorySection({ site }: { site: SiteSettings }) {
               <div className="absolute inset-0 bg-lavender/50 rounded-3xl rotate-3 transform transition-transform duration-300"></div>
               <div className="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-white">
                 {site.storyImageUrl ? (
-                  <ImageWithFallback
-                    src={site.storyImageUrl}
-                    alt={site.brandName}
-                    className="w-full h-72 sm:h-80 object-cover"
-                  />
+                  <div className="relative w-full h-72 sm:h-80">
+                    <ImageWithFallback
+                      src={site.storyImageUrl}
+                      alt={site.brandName}
+                      fill
+                      sizes="(min-width: 1024px) 384px, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
                 ) : (
                   <div className="w-full h-72 sm:h-80 bg-gradient-to-br from-powder-pink/50 via-vanilla to-lavender/50 flex items-center justify-center">
                     <span className="font-script text-5xl text-gold/80">{site.brandName}</span>

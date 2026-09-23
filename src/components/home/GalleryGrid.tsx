@@ -28,15 +28,15 @@ export function GalleryGrid({ items, site }: { items: PublicGalleryItem[]; site:
           <div
             key={item.id}
             className={`relative group rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 ${
-              tall ? "sm:row-span-2" : ""
+              tall ? "sm:row-span-2 h-full min-h-[360px]" : "h-72"
             }`}
           >
             <ImageWithFallback
               src={item.imageUrl}
               alt={item.title || "Rüya Pasta Evim pasta çalışması"}
-              className={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${
-                tall ? "h-full min-h-[360px]" : "h-72"
-              }`}
+              fill
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-chocolate/80 via-chocolate/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
               {item.categoryName && (

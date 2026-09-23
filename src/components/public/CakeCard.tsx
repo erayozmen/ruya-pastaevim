@@ -31,7 +31,9 @@ export function CakeCard({
           <ImageWithFallback
             src={cake.mainImageUrl}
             alt={cake.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-powder-pink/40 via-vanilla to-lavender/40 flex items-center justify-center text-5xl text-gold/70">

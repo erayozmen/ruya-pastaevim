@@ -105,13 +105,19 @@ export function Hero({
                 <ImageWithFallback
                   src={site.heroImageUrl}
                   alt={site.brandName}
-                  className="w-full h-full object-cover object-center"
+                  fill
+                  priority
+                  sizes="(min-width: 640px) 512px, 100vw"
+                  className="object-cover object-center"
                 />
               ) : heroCake?.mainImageUrl ? (
                 <ImageWithFallback
                   src={heroCake.mainImageUrl}
                   alt={heroCake.name}
-                  className="w-full h-full object-cover object-center"
+                  fill
+                  priority
+                  sizes="(min-width: 640px) 512px, 100vw"
+                  className="object-cover object-center"
                 />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-powder-pink/60 via-vanilla to-lavender/50 flex items-center justify-center">

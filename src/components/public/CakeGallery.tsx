@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 
 /**
@@ -18,7 +19,10 @@ export function CakeGallery({ images, name }: { images: string[]; name: string }
           <ImageWithFallback
             src={active}
             alt={name}
-            className="w-full h-full object-cover object-center"
+            fill
+            priority
+            sizes="(min-width: 640px) 512px, 100vw"
+            className="object-cover object-center"
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-powder-pink/60 via-vanilla to-lavender/50 flex items-center justify-center text-7xl text-gold/70">
@@ -34,14 +38,13 @@ export function CakeGallery({ images, name }: { images: string[]; name: string }
               type="button"
               onClick={() => setActiveIndex(index)}
               aria-label={`${name} görsel ${index + 1}`}
-              className={`aspect-square rounded-2xl overflow-hidden border-2 transition-all ${
+              className={`relative aspect-square rounded-2xl overflow-hidden border-2 transition-all ${
                 index === activeIndex
                   ? "border-chocolate"
                   : "border-transparent hover:border-powder-pink"
               }`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={url} alt="" className="w-full h-full object-cover" />
+              <Image src={url} alt="" fill sizes="(min-width: 640px) 100px, 20vw" className="object-cover" />
             </button>
           ))}
         </div>

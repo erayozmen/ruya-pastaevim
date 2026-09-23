@@ -46,6 +46,8 @@ export function ReviewsSection({ reviews }: { reviews: PublicReview[] }) {
                       <ImageWithFallback
                         src={review.photoUrl}
                         alt={`Müşteri ${review.customerName}`}
+                        width={44}
+                        height={44}
                         className={`w-11 h-11 rounded-full object-cover border-2 ${accent.border}`}
                       />
                     ) : (

@@ -5,5 +5,5 @@
  * Favicon: drop `icon.png` / `favicon.ico` into `src/app/` (Next picks it up).
  */
 export const BRAND_LOGO_SRC: string | null = "/brand/logo.png";
-export const BRAND_LOGO_WIDTH = 1942;
-export const BRAND_LOGO_HEIGHT = 809;
+export const BRAND_LOGO_WIDTH = 1895;
+export const BRAND_LOGO_HEIGHT = 612;

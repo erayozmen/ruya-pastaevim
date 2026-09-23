@@ -9,6 +9,8 @@ const NAV_LINKS = [
   { href: "/admin/cakes", label: "Ürünler" },
   { href: "/admin/gallery", label: "Galeri" },
   { href: "/admin/reviews", label: "Yorumlar" },
+  { href: "/admin/customizer", label: "Customizer" },
+  { href: "/admin/orders", label: "Siparişler" },
   { href: "/admin/media", label: "Medya" },
   { href: "/admin/settings", label: "Ayarlar" },
 ] as const;

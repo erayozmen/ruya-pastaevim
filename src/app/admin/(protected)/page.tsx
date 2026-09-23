@@ -10,7 +10,7 @@ export default function AdminDashboardPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Link
           href="/admin/categories"
           className="rounded-lg border border-neutral-200 bg-white p-6 hover:border-neutral-400"
@@ -38,6 +38,20 @@ export default function AdminDashboardPage() {
         >
           <h2 className="text-sm font-semibold text-neutral-900">Yorumlar</h2>
           <p className="mt-1 text-sm text-neutral-500">Gerçek müşteri yorumlarını yayınlayın.</p>
+        </Link>
+        <Link
+          href="/admin/customizer"
+          className="rounded-lg border border-neutral-200 bg-white p-6 hover:border-neutral-400"
+        >
+          <h2 className="text-sm font-semibold text-neutral-900">Customizer</h2>
+          <p className="mt-1 text-sm text-neutral-500">Porsiyon, tema, renk ve lezzet seçeneklerini yönetin.</p>
+        </Link>
+        <Link
+          href="/admin/orders"
+          className="rounded-lg border border-neutral-200 bg-white p-6 hover:border-neutral-400"
+        >
+          <h2 className="text-sm font-semibold text-neutral-900">Siparişler</h2>
+          <p className="mt-1 text-sm text-neutral-500">Gelen sipariş taleplerini görüntüleyin.</p>
         </Link>
         <Link
           href="/admin/media"

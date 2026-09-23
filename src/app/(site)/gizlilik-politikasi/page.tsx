@@ -47,6 +47,11 @@ export default async function PrivacyPolicyPage() {
               sitesi için geçerlidir. Site; pasta, börek ve hamur işi ürünlerimizi tanıtmak, ziyaretçilerin
               kendi pasta tasarımlarını oluşturmasına imkân vermek ve sipariş talebi almak amacıyla
               kullanılmaktadır. Sitede üyelik, hesap oluşturma veya online ödeme sistemi bulunmamaktadır.
+              Siteyi kullanırken geçerli olan genel şartlar için{" "}
+              <Link href="/kullanim-sartlari" className="text-gold hover:text-chocolate">
+                Kullanım Şartları
+              </Link>{" "}
+              sayfamızı da inceleyebilirsiniz.
             </p>
           </Section>
 
@@ -158,7 +163,11 @@ export default async function PrivacyPolicyPage() {
                 Hakkınızda tutulan verilerin (sipariş talebiniz) silinmesini istiyorsanız bize WhatsApp
                 veya Instagram üzerinden ulaşabilirsiniz. Talebiniz tarafımızca değerlendirilip en kısa
                 sürede uygulanır; silme işlemi otomatik değildir, talebinizin bize ulaşması ve
-                işlenmesi gerekir.
+                işlenmesi gerekir. Adım adım yönergeler için{" "}
+                <Link href="/veri-silme-talebi" className="text-gold hover:text-chocolate underline">
+                  Veri Silme Talebi
+                </Link>{" "}
+                sayfamızı da kullanabilirsiniz.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <a

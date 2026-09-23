@@ -11,6 +11,8 @@ const STATIC_PATHS = [
   "/iletisim",
   "/borek-hamur-isleri",
   "/gizlilik-politikasi",
+  "/kullanim-sartlari",
+  "/veri-silme-talebi",
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

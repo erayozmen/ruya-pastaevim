@@ -60,9 +60,14 @@ export function Footer({ site }: { site: SiteSettings }) {
 
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-vanilla/50 gap-4">
           <p>© 2026 {site.brandName} - Tüm Hakları Saklıdır.</p>
-          <Link href="/gizlilik-politikasi" className="hover:text-powder-pink transition-colors">
-            Gizlilik Politikası
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/kullanim-sartlari" className="hover:text-powder-pink transition-colors">
+              Kullanım Şartları
+            </Link>
+            <Link href="/gizlilik-politikasi" className="hover:text-powder-pink transition-colors">
+              Gizlilik Politikası
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

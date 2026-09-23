@@ -480,12 +480,16 @@ export type Database = {
           created_at: string
           delivery_info: string | null
           email: string | null
+          hero_image_url: string | null
           id: boolean
           instagram_url: string
           instagram_username: string
           minimum_order_days: number | null
           phone: string
           service_area: string | null
+          story_image_url: string | null
+          story_text: string
+          story_title: string
           updated_at: string
           whatsapp_number: string
           working_hours: string | null
@@ -497,12 +501,16 @@ export type Database = {
           created_at?: string
           delivery_info?: string | null
           email?: string | null
+          hero_image_url?: string | null
           id?: boolean
           instagram_url?: string
           instagram_username?: string
           minimum_order_days?: number | null
           phone?: string
           service_area?: string | null
+          story_image_url?: string | null
+          story_text?: string
+          story_title?: string
           updated_at?: string
           whatsapp_number?: string
           working_hours?: string | null
@@ -514,12 +522,16 @@ export type Database = {
           created_at?: string
           delivery_info?: string | null
           email?: string | null
+          hero_image_url?: string | null
           id?: boolean
           instagram_url?: string
           instagram_username?: string
           minimum_order_days?: number | null
           phone?: string
           service_area?: string | null
+          story_image_url?: string | null
+          story_text?: string
+          story_title?: string
           updated_at?: string
           whatsapp_number?: string
           working_hours?: string | null

@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { href: "/admin/gallery", label: "Galeri" },
   { href: "/admin/reviews", label: "Yorumlar" },
   { href: "/admin/media", label: "Medya" },
+  { href: "/admin/settings", label: "Ayarlar" },
 ] as const;
 
 export default async function AdminProtectedLayout({ children }: { children: React.ReactNode }) {

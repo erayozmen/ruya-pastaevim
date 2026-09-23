@@ -19,6 +19,12 @@ export interface SiteSettings {
   workingHours: string | null;
   deliveryInfo: string | null;
   minimumOrderDays: number | null;
+  /** Homepage Hero right-side image. Null → the existing gradient fallback. */
+  heroImageUrl: string | null;
+  storyTitle: string;
+  storyText: string;
+  /** Homepage Story left-side image. Null → the existing gradient fallback. */
+  storyImageUrl: string | null;
 }
 
 interface SiteSettingsRow {
@@ -34,6 +40,10 @@ interface SiteSettingsRow {
   working_hours: string | null;
   delivery_info: string | null;
   minimum_order_days: number | null;
+  hero_image_url: string | null;
+  story_title: string;
+  story_text: string;
+  story_image_url: string | null;
 }
 
 export function mapSiteSettings(row: SiteSettingsRow): SiteSettings {
@@ -52,6 +62,10 @@ export function mapSiteSettings(row: SiteSettingsRow): SiteSettings {
     workingHours: row.working_hours,
     deliveryInfo: row.delivery_info,
     minimumOrderDays: row.minimum_order_days,
+    heroImageUrl: isOwnMediaUrl(row.hero_image_url) ? row.hero_image_url : null,
+    storyTitle: row.story_title,
+    storyText: row.story_text,
+    storyImageUrl: isOwnMediaUrl(row.story_image_url) ? row.story_image_url : null,
   };
 }
 
@@ -74,6 +88,11 @@ export const FALLBACK_SITE_SETTINGS: SiteSettings = {
   workingHours: null,
   deliveryInfo: null,
   minimumOrderDays: null,
+  heroImageUrl: null,
+  storyTitle: "Hikayemiz",
+  storyText:
+    "15 yıldır bu işi sevgiyle yapıyoruz. Her özel günün kendine ait bir hikâyesi olduğuna inanıyor, o hikâyeye eşlik edecek pastaları ve lezzetleri özenle hazırlıyoruz.\n\nRüya Pasta Evim'de amacımız, hayalinizdeki tasarımı birlikte şekillendirerek sizin için güzel bir anıya dönüşecek lezzetler hazırlamak.",
+  storyImageUrl: null,
 };
 
 /**

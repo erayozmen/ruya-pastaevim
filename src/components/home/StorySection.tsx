@@ -1,3 +1,4 @@
+import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import type { SiteSettings } from "@/lib/site-data";
 
 export function StorySection({ site }: { site: SiteSettings }) {
@@ -12,9 +13,17 @@ export function StorySection({ site }: { site: SiteSettings }) {
             <div className="relative w-full max-w-sm">
               <div className="absolute inset-0 bg-lavender/50 rounded-3xl rotate-3 transform transition-transform duration-300"></div>
               <div className="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-white">
-                <div className="w-full h-72 sm:h-80 bg-gradient-to-br from-powder-pink/50 via-vanilla to-lavender/50 flex items-center justify-center">
-                  <span className="font-script text-5xl text-gold/80">{site.brandName}</span>
-                </div>
+                {site.storyImageUrl ? (
+                  <ImageWithFallback
+                    src={site.storyImageUrl}
+                    alt={site.brandName}
+                    className="w-full h-72 sm:h-80 object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-72 sm:h-80 bg-gradient-to-br from-powder-pink/50 via-vanilla to-lavender/50 flex items-center justify-center">
+                    <span className="font-script text-5xl text-gold/80">{site.brandName}</span>
+                  </div>
+                )}
                 <div className="p-4 bg-vanilla text-center border-t border-powder-pink/20">
                   <h4 className="font-serif text-lg font-bold text-chocolate">{site.bakerName}</h4>
                   <p className="font-script text-gold text-lg -mt-1">{site.brandName}</p>
@@ -25,18 +34,16 @@ export function StorySection({ site }: { site: SiteSettings }) {
 
           <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
             <div className="inline-block">
-              <span className="font-script text-2xl text-peach font-semibold block">Hikayemiz</span>
+              <span className="font-script text-2xl text-peach font-semibold block">{site.storyTitle}</span>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-chocolate mt-1">
                 {site.brandName}
               </h2>
             </div>
 
             <div className="space-y-4 text-chocolate/75 text-sm sm:text-base leading-relaxed">
-              <p>
-                Özel günleriniz için pasta, börek ve hamur işleri hazırlıyoruz. Siparişinizi
-                sitedeki tasarım aracıyla oluşturabilir, detayları WhatsApp üzerinden bizimle
-                netleştirebilirsiniz.
-              </p>
+              {site.storyText.split("\n").filter((paragraph) => paragraph.trim().length > 0).map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-chocolate/10 text-center">

@@ -101,7 +101,13 @@ export function Hero({
 
             {/* Hero Cake Image */}
             <div className="relative w-full max-w-md sm:max-w-lg aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/80 transition-transform duration-500 hover:scale-[1.01]">
-              {heroCake?.mainImageUrl ? (
+              {site.heroImageUrl ? (
+                <ImageWithFallback
+                  src={site.heroImageUrl}
+                  alt={site.brandName}
+                  className="w-full h-full object-cover object-center"
+                />
+              ) : heroCake?.mainImageUrl ? (
                 <ImageWithFallback
                   src={heroCake.mainImageUrl}
                   alt={heroCake.name}

@@ -7,7 +7,7 @@ import type { SiteSettings } from "@/lib/site-data";
  * no invented posts, likes, dates or captions.
  */
 export async function InstagramSection({ site }: { site: SiteSettings }) {
-  const posts = await getInstagramPosts(6);
+  const posts = await getInstagramPosts(12);
 
   return (
     <section className="py-16 bg-vanilla">
@@ -21,7 +21,7 @@ export async function InstagramSection({ site }: { site: SiteSettings }) {
         </p>
 
         {posts.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
             {posts.map((post) => (
               <a
                 key={post.id}

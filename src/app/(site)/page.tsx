@@ -35,10 +35,10 @@ export default async function Home() {
           <CategoriesSection categories={categories} />
           <PastrySection products={pastryProducts} categories={pastryCategories} />
           <GallerySection items={galleryItems} site={site} />
+          <InstagramSection site={site} />
           <CakeCustomizer options={options} error={customizerError} site={site} />
         </CustomizerProvider>
 
-        <InstagramSection site={site} />
         <ReviewsSection reviews={reviews} />
         <FinalCTA site={site} />
     </>

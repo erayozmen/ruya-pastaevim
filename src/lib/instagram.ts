@@ -1,4 +1,5 @@
 import "server-only";
+import { getRuntimeInstagramToken } from "@/lib/instagram-token-store";
 
 const API_BASE = "https://graph.instagram.com/v25.0";
 const CACHE_SECONDS = 3600;
@@ -42,9 +43,14 @@ async function graphGet<T>(path: string, params: Record<string, string>, token: 
  * any API error, this returns [] and the section shows the profile link.
  * `media_url` is omitted by Meta for copyrighted media and `thumbnail_url`
  * only exists for videos; posts without a usable image are skipped.
+ *
+ * Token lookup order: a token obtained via the admin's OAuth connect flow
+ * this session (see `instagram-token-store.ts` — process-local, not
+ * durable) takes priority, falling back to the manually configured
+ * `INSTAGRAM_ACCESS_TOKEN` environment variable.
  */
 export async function getInstagramPosts(limit = 6): Promise<InstagramPost[]> {
-  const token = process.env.INSTAGRAM_ACCESS_TOKEN;
+  const token = getRuntimeInstagramToken() ?? process.env.INSTAGRAM_ACCESS_TOKEN;
   if (!token) return [];
 
   try {

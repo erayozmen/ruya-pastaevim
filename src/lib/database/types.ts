@@ -343,6 +343,30 @@ export type Database = {
           },
         ]
       }
+      instagram_oauth_tokens: {
+        Row: {
+          access_token: string
+          created_at: string
+          expires_at: string
+          id: boolean
+          updated_at: string
+        }
+        Insert: {
+          access_token: string
+          created_at?: string
+          expires_at: string
+          id?: boolean
+          updated_at?: string
+        }
+        Update: {
+          access_token?: string
+          created_at?: string
+          expires_at?: string
+          id?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
       order_requests: {
         Row: {
           color_label: string

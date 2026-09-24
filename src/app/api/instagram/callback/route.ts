@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isRequestFromAdmin } from "@/lib/admin-guard";
-import { setRuntimeInstagramToken } from "@/lib/instagram-token-store";
+import { saveInstagramToken } from "@/lib/instagram-token-repo";
 import { INSTAGRAM_STATE_COOKIE, getInstagramRedirectUri } from "@/lib/instagram-oauth";
 import { SITE_URL } from "@/lib/site-url";
 
@@ -25,8 +25,8 @@ function errorRedirect(reason: string) {
  * short-lived token, then that for a 60-day long-lived one (Meta docs:
  * api.instagram.com/oauth/access_token, then graph.instagram.com/access_token
  * with grant_type=ig_exchange_token). The token itself is never returned to
- * the browser, never logged, and never written to an unencrypted table —
- * see `instagram-token-store.ts` for what happens to it and why.
+ * the browser, never logged, and is persisted only via `instagram-token-repo.ts`,
+ * which writes it through a service-role-only Supabase client (see there).
  */
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -89,12 +89,13 @@ export async function GET(request: NextRequest) {
     const longLivedResponse = await fetch(longLivedUrl);
     const longLived = (await longLivedResponse.json()) as LongLivedTokenResponse;
 
-    if (!longLivedResponse.ok || !longLived.access_token) {
+    if (!longLivedResponse.ok || !longLived.access_token || !longLived.expires_in) {
       return clearStateCookie(errorRedirect(`long-lived exchange failed (${longLivedResponse.status})`));
     }
 
-    setRuntimeInstagramToken(longLived.access_token);
-    console.log("[instagram-oauth] connected successfully (token not logged)");
+    const expiresAt = new Date(Date.now() + longLived.expires_in * 1000);
+    await saveInstagramToken(longLived.access_token, expiresAt);
+    console.log(`[instagram-oauth] connected successfully, expires ${expiresAt.toISOString()} (token not logged)`);
 
     return clearStateCookie(NextResponse.redirect(`${SITE_URL}/admin/settings?instagram=connected`));
   } catch (error) {

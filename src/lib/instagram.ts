@@ -1,8 +1,13 @@
 import "server-only";
-import { getRuntimeInstagramToken } from "@/lib/instagram-token-store";
+import { getInstagramToken, saveInstagramToken } from "@/lib/instagram-token-repo";
 
 const API_BASE = "https://graph.instagram.com/v25.0";
 const CACHE_SECONDS = 3600;
+
+/** Meta requires the token to be at least 24h old to refresh; ours will
+ * always be older than that by the time it's within this margin of its
+ * 60-day expiry, so no separate "issued at" tracking is needed. */
+const REFRESH_MARGIN_MS = 7 * 24 * 60 * 60 * 1000;
 
 export interface InstagramPost {
   id: string;
@@ -33,24 +38,56 @@ async function graphGet<T>(path: string, params: Record<string, string>, token: 
 }
 
 /**
+ * Refreshes a long-lived token that's close to expiring (Meta docs:
+ * GET graph.instagram.com/refresh_access_token, grant_type=ig_refresh_token).
+ * On success, persists the new token/expiry via the repo and returns it.
+ * On any failure, returns the original token unchanged — the caller keeps
+ * working with the still-valid (if aging) token instead of breaking.
+ */
+async function refreshIfNeeded(accessToken: string, expiresAt: Date): Promise<string> {
+  if (expiresAt.getTime() - Date.now() > REFRESH_MARGIN_MS) return accessToken;
+
+  try {
+    const url = new URL("https://graph.instagram.com/refresh_access_token");
+    url.searchParams.set("grant_type", "ig_refresh_token");
+    url.searchParams.set("access_token", accessToken);
+
+    const response = await fetch(url, { cache: "no-store" });
+    const body = (await response.json()) as { access_token?: string; expires_in?: number };
+
+    if (!response.ok || !body.access_token || !body.expires_in) {
+      console.error(`[instagram] token refresh failed (${response.status})`);
+      return accessToken;
+    }
+
+    const newExpiresAt = new Date(Date.now() + body.expires_in * 1000);
+    await saveInstagramToken(body.access_token, newExpiresAt);
+    return body.access_token;
+  } catch (error) {
+    console.error("[instagram] token refresh error", error instanceof Error ? error.message : error);
+    return accessToken;
+  }
+}
+
+/**
  * Latest posts of the business account via the official Instagram API with
  * Instagram Login (Meta docs: graph.instagram.com/v25.0). Flow per the docs:
  * GET /me?fields=user_id gives the professional account id, then
- * GET /{IG_ID}/media lists its media. The token is a long-lived Instagram
- * User access token (60 days, refreshable after 24h via /refresh_access_token)
- * kept in the server-only env var INSTAGRAM_ACCESS_TOKEN — never NEXT_PUBLIC_,
- * never committed. Responses are cached for an hour. Without a token, or on
- * any API error, this returns [] and the section shows the profile link.
- * `media_url` is omitted by Meta for copyrighted media and `thumbnail_url`
- * only exists for videos; posts without a usable image are skipped.
+ * GET /{IG_ID}/media lists its media. Responses are cached for an hour.
+ * Without a token, or on any API error, this returns [] and the section
+ * shows the profile link instead. `media_url` is omitted by Meta for
+ * copyrighted media and `thumbnail_url` only exists for videos; posts
+ * without a usable image are skipped.
  *
- * Token lookup order: a token obtained via the admin's OAuth connect flow
- * this session (see `instagram-token-store.ts` — process-local, not
- * durable) takes priority, falling back to the manually configured
- * `INSTAGRAM_ACCESS_TOKEN` environment variable.
+ * Token source: the long-lived token saved by the OAuth connect flow
+ * (`instagram-token-repo.ts`, service-role-only table), refreshed
+ * automatically when it's within a week of its 60-day expiry. Falls back
+ * to the manually configured `INSTAGRAM_ACCESS_TOKEN` env var if no
+ * account has been connected via OAuth yet.
  */
 export async function getInstagramPosts(limit = 6): Promise<InstagramPost[]> {
-  const token = getRuntimeInstagramToken() ?? process.env.INSTAGRAM_ACCESS_TOKEN;
+  const stored = await getInstagramToken();
+  const token = stored ? await refreshIfNeeded(stored.accessToken, stored.expiresAt) : process.env.INSTAGRAM_ACCESS_TOKEN;
   if (!token) return [];
 
   try {

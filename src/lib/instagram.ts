@@ -3,6 +3,12 @@ import { getInstagramToken, saveInstagramToken } from "@/lib/instagram-token-rep
 
 const API_BASE = "https://graph.instagram.com/v25.0";
 const CACHE_SECONDS = 3600;
+/** Meta's API has no SLA on response time; without this, a slow/hanging
+ * response would block the whole homepage render for however long the
+ * function is allowed to run. 5s is generous for a healthy API call but
+ * still short enough that a real outage degrades to the "no token" fallback
+ * (profile link only) instead of stalling the page. */
+const GRAPH_API_TIMEOUT_MS = 5000;
 
 /** Meta requires the token to be at least 24h old to refresh; ours will
  * always be older than that by the time it's within this margin of its
@@ -29,7 +35,10 @@ async function graphGet<T>(path: string, params: Record<string, string>, token: 
   for (const [key, value] of Object.entries(params)) url.searchParams.set(key, value);
   url.searchParams.set("access_token", token);
 
-  const response = await fetch(url, { next: { revalidate: CACHE_SECONDS } });
+  const response = await fetch(url, {
+    next: { revalidate: CACHE_SECONDS },
+    signal: AbortSignal.timeout(GRAPH_API_TIMEOUT_MS),
+  });
   if (!response.ok) {
     console.error(`[instagram] ${path} responded ${response.status}`);
     return null;
@@ -52,7 +61,7 @@ async function refreshIfNeeded(accessToken: string, expiresAt: Date): Promise<st
     url.searchParams.set("grant_type", "ig_refresh_token");
     url.searchParams.set("access_token", accessToken);
 
-    const response = await fetch(url, { cache: "no-store" });
+    const response = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(GRAPH_API_TIMEOUT_MS) });
     const body = (await response.json()) as { access_token?: string; expires_in?: number };
 
     if (!response.ok || !body.access_token || !body.expires_in) {

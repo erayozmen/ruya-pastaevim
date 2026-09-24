@@ -83,12 +83,20 @@ function logError(scope: string, error: { message: string } | null) {
   if (error) console.error(`[public-queries] ${scope}: ${error.message}`);
 }
 
-export async function getSiteSettings(supabase?: Supabase): Promise<SiteSettings> {
-  const client = supabase ?? (await createClient());
+/**
+ * React request-level memoization: within a single render pass (e.g. the
+ * (site) layout and the homepage both calling this), the underlying query
+ * runs once and every caller gets the same result. This is scoped to a
+ * single incoming request only — a new request always re-runs the query
+ * against Supabase, so an admin edit to site_settings is visible on the
+ * very next page load. Not a persistent/cross-request cache.
+ */
+export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
+  const client = await createClient();
   const { data, error } = await client.from("site_settings").select("*").maybeSingle();
   logError("site_settings", error);
   return data ? mapSiteSettings(data) : FALLBACK_SITE_SETTINGS;
-}
+});
 
 export async function getPublicCategories(
   supabase?: Supabase,
@@ -146,11 +154,20 @@ export async function getPublicCakes(options?: {
   categoryId?: string;
   group?: ProductGroup;
   limit?: number;
+  /** Already-fetched, unfiltered category list to reuse instead of re-querying
+   * `categories` (e.g. the homepage already has `allCategories` from its own
+   * Promise.all). Filtered by `group` locally, same as a fresh fetch would be. */
+  categories?: PublicCategory[];
+  /** Reuse an existing client instead of creating a new one. */
+  supabase?: Supabase;
 }): Promise<PublicCake[]> {
-  const supabase = await createClient();
+  const supabase = options?.supabase ?? (await createClient());
   let groupIds: string[] | null = null;
   if (options?.group) {
-    groupIds = (await getPublicCategories(supabase, options.group)).map((category) => category.id);
+    const categories = options.categories
+      ? options.categories.filter((category) => category.group === options.group)
+      : await getPublicCategories(supabase, options.group);
+    groupIds = categories.map((category) => category.id);
     if (groupIds.length === 0) return [];
   }
   let query = supabase
@@ -266,7 +283,7 @@ export async function getHomePageData(): Promise<HomePageData> {
   const supabase = await createClient();
 
   const [site, allCategories, heroCake] = await Promise.all([
-    getSiteSettings(supabase),
+    getSiteSettings(),
     getPublicCategories(supabase),
     getHeroCake(supabase),
   ]);
@@ -276,7 +293,7 @@ export async function getHomePageData(): Promise<HomePageData> {
   const [galleryItems, reviews, pastryProducts] = await Promise.all([
     getGalleryItems(supabase, categoryNames, HOME_GALLERY_LIMIT),
     getReviews(supabase, categoryNames),
-    getPublicCakes({ group: "pastry", limit: 6 }),
+    getPublicCakes({ group: "pastry", limit: 6, categories: allCategories, supabase }),
   ]);
 
   return {

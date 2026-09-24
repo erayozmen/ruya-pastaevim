@@ -2,7 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function AdminCakesPage({ searchParams }: PageProps<"/admin/cakes">) {
-  const { error } = await searchParams;
+  const { error, deleted } = await searchParams;
   const supabase = await createClient();
   const [{ data: cakes, error: fetchError }, { data: categories }] = await Promise.all([
     supabase
@@ -26,6 +26,12 @@ export default async function AdminCakesPage({ searchParams }: PageProps<"/admin
       {error && (
         <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           {error}
+        </div>
+      )}
+
+      {deleted && (
+        <div className="rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+          Pasta silindi. Medya dosyaları Media Library&apos;de saklanmaya devam ediyor.
         </div>
       )}
 

@@ -572,6 +572,10 @@ export type Database = {
         Args: { p_cake_id: string; p_image_urls: string[] }
         Returns: undefined
       }
+      check_recent_order_request: {
+        Args: { p_phone_digits: string; p_cooldown_seconds?: number }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role: "ADMIN"

@@ -11,11 +11,17 @@ export interface OrderRequestInput {
   color: string;
   flavor: string;
   note: string;
+  /** Hidden form field real visitors never fill in; non-empty means a bot. */
+  honeypot: string;
 }
 
 export type OrderRequestResult = { success: true } | { success: false; error: string };
 
 const MAX_NOTE_LENGTH = 500;
+/** Same phone number can't submit again within this window. Short on
+ * purpose — a genuine customer retrying after a network hiccup shouldn't
+ * be blocked, this only stops rapid repeated/automated submissions. */
+const COOLDOWN_SECONDS = 120;
 
 function validateInput(input: OrderRequestInput): string | null {
   if (!input.customerName.trim()) return "Adınızı girin.";
@@ -79,13 +85,38 @@ async function verifyOptionsAreActive(
   return null;
 }
 
+const GENERIC_FAILURE = "Sipariş talebiniz kaydedilemedi. Lütfen tekrar deneyin.";
+
 export async function createOrderRequest(input: OrderRequestInput): Promise<OrderRequestResult> {
+  // Bots that blindly fill every field trip the honeypot. Real visitors
+  // never see or fill this field, so any value here means "not human" —
+  // rejected with the same generic message a real failure would get, so
+  // nothing reveals that bot detection specifically caused it.
+  if (input.honeypot.trim() !== "") {
+    console.error("[order-requests] honeypot field was filled — rejecting as spam");
+    return { success: false, error: GENERIC_FAILURE };
+  }
+
   const validationError = validateInput(input);
   if (validationError) {
     return { success: false, error: validationError };
   }
 
   const supabase = await createClient();
+
+  const phoneDigits = input.phone.replace(/\D/g, "");
+  const { data: recentlySubmitted, error: cooldownError } = await supabase.rpc("check_recent_order_request", {
+    p_phone_digits: phoneDigits,
+    p_cooldown_seconds: COOLDOWN_SECONDS,
+  });
+  if (cooldownError) {
+    console.error("[order-requests] cooldown check failed:", cooldownError.message);
+  } else if (recentlySubmitted) {
+    return {
+      success: false,
+      error: "Çok kısa sürede tekrar talep gönderildi. Lütfen birkaç dakika sonra tekrar deneyin.",
+    };
+  }
 
   const optionsError = await verifyOptionsAreActive(supabase, input);
   if (optionsError) {
@@ -108,7 +139,7 @@ export async function createOrderRequest(input: OrderRequestInput): Promise<Orde
   const { error } = await supabase.from("order_requests").insert(payload);
 
   if (error) {
-    return { success: false, error: "Sipariş talebiniz kaydedilemedi. Lütfen tekrar deneyin." };
+    return { success: false, error: GENERIC_FAILURE };
   }
 
   return { success: true };

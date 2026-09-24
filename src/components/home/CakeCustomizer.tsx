@@ -21,9 +21,11 @@ export function CakeCustomizer({
 
   const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot — real visitors never see or fill this
   const [isPending, startTransition] = useTransition();
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successUrl, setSuccessUrl] = useState<string | null>(null);
+  const [submitted, setSubmitted] = useState(false);
 
   const activeTheme = themes.find((t) => t.value === state.theme) ?? themes[0];
   const previewTitle = activeTheme
@@ -34,6 +36,8 @@ export function CakeCustomizer({
     portions.length > 0 && themes.length > 0 && colors.length > 0 && flavors.length > 0;
 
   const handleSubmit = () => {
+    if (submitted) return;
+
     setSubmitError(null);
     setSuccessUrl(null);
 
@@ -55,6 +59,7 @@ export function CakeCustomizer({
         color: state.color,
         flavor: state.flavor,
         note: state.note,
+        honeypot: website,
       });
 
       if (!result.success) {
@@ -62,6 +67,7 @@ export function CakeCustomizer({
         return;
       }
 
+      setSubmitted(true);
       const whatsappUrl = buildCustomizerWhatsappUrl(state, site);
       setSuccessUrl(whatsappUrl);
       const opened = window.open(whatsappUrl, "_blank");
@@ -239,23 +245,51 @@ export function CakeCustomizer({
 
             {/* Step 6: İletişim Bilgileriniz */}
             <div>
-              <label className="block text-sm font-bold text-chocolate uppercase tracking-wider mb-2">
+              <span className="block text-sm font-bold text-chocolate uppercase tracking-wider mb-2">
                 6. İletişim Bilgileriniz
-              </label>
+              </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="customerNameInput" className="sr-only">
+                    Adınız
+                  </label>
+                  <input
+                    id="customerNameInput"
+                    type="text"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    placeholder="Adınız"
+                    className="w-full bg-vanilla border border-powder-pink/50 rounded-2xl py-3 px-4 text-chocolate placeholder-chocolate/40 text-sm focus:outline-none focus:ring-2 focus:ring-peach transition-all"
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="customerPhoneInput" className="sr-only">
+                    Telefon Numaranız
+                  </label>
+                  <input
+                    id="customerPhoneInput"
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Telefon Numaranız"
+                    className="w-full bg-vanilla border border-powder-pink/50 rounded-2xl py-3 px-4 text-chocolate placeholder-chocolate/40 text-sm focus:outline-none focus:ring-2 focus:ring-peach transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Honeypot: invisible to real visitors (off-screen, out of tab order,
+                  hidden from assistive tech), but present in the raw HTML so bots
+                  that auto-fill every field trip it. Never shown, never focusable. */}
+              <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
+                <label htmlFor="website">Web Siteniz</label>
                 <input
+                  id="website"
+                  name="website"
                   type="text"
-                  value={customerName}
-                  onChange={(e) => setCustomerName(e.target.value)}
-                  placeholder="Adınız"
-                  className="w-full bg-vanilla border border-powder-pink/50 rounded-2xl py-3 px-4 text-chocolate placeholder-chocolate/40 text-sm focus:outline-none focus:ring-2 focus:ring-peach transition-all"
-                />
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Telefon Numaranız"
-                  className="w-full bg-vanilla border border-powder-pink/50 rounded-2xl py-3 px-4 text-chocolate placeholder-chocolate/40 text-sm focus:outline-none focus:ring-2 focus:ring-peach transition-all"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
                 />
               </div>
             </div>
@@ -318,11 +352,13 @@ export function CakeCustomizer({
               <button
                 type="button"
                 onClick={handleSubmit}
-                disabled={isPending || !canSubmit}
+                disabled={isPending || !canSubmit || submitted}
                 className="w-full py-4 px-6 rounded-2xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <i className="fa-brands fa-whatsapp text-2xl"></i>
-                <span>{isPending ? "Gönderiliyor..." : "Bu Pastayı WhatsApp'tan İste"}</span>
+                <span>
+                  {isPending ? "Gönderiliyor..." : submitted ? "Talebiniz Alındı" : "Bu Pastayı WhatsApp'tan İste"}
+                </span>
               </button>
 
               {submitError && (

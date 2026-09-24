@@ -172,5 +172,5 @@ export async function deleteCake(id: string) {
   }
 
   revalidatePath("/admin/cakes");
-  redirect("/admin/cakes");
+  redirect("/admin/cakes?deleted=1");
 }

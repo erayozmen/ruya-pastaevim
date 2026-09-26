@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const INITIAL_VISIBLE_COUNT = 10;
@@ -12,9 +12,31 @@ const INITIAL_VISIBLE_COUNT = 10;
  * client-side "show more": all images are already in the page's data, so
  * expanding the grid is instant with no page reload or extra network
  * request.
+ *
+ * Thumbnails open a lightweight, dependency-free lightbox on click (full
+ * screenshot, object-contain so nothing is cropped) — independent of the
+ * 10→19 "show more" state, so expanding the grid never affects the modal.
  */
 export function CustomerFeedbackGallery({ images }: { images: string[] }) {
   const [expanded, setExpanded] = useState(false);
+  const [activeUrl, setActiveUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!activeUrl) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setActiveUrl(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [activeUrl]);
 
   if (images.length === 0) return null;
 
@@ -33,9 +55,12 @@ export function CustomerFeedbackGallery({ images }: { images: string[] }) {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
           {visibleImages.map((url, index) => (
-            <div
+            <button
               key={url}
-              className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-powder-pink/20 border border-powder-pink/40 shadow-sm"
+              type="button"
+              onClick={() => setActiveUrl(url)}
+              aria-label="Geri bildirimi büyüt"
+              className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-powder-pink/20 border border-powder-pink/40 shadow-sm cursor-zoom-in transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-peach focus:ring-offset-2"
             >
               <Image
                 src={url}
@@ -45,7 +70,7 @@ export function CustomerFeedbackGallery({ images }: { images: string[] }) {
                 className="object-contain"
                 loading={index < INITIAL_VISIBLE_COUNT ? "eager" : "lazy"}
               />
-            </div>
+            </button>
           ))}
         </div>
 
@@ -62,6 +87,32 @@ export function CustomerFeedbackGallery({ images }: { images: string[] }) {
           </div>
         )}
       </div>
+
+      {activeUrl && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-chocolate/90 backdrop-blur-sm p-4 sm:p-8"
+          onClick={() => setActiveUrl(null)}
+        >
+          <button
+            type="button"
+            onClick={() => setActiveUrl(null)}
+            aria-label="Kapat"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xl transition-colors z-10"
+          >
+            <i className="fa-solid fa-xmark"></i>
+          </button>
+
+          <div className="relative w-full h-full max-w-3xl max-h-[85vh]" onClick={(event) => event.stopPropagation()}>
+            <Image
+              src={activeUrl}
+              alt="Gerçek müşteri geri bildirimi - büyük görünüm"
+              fill
+              sizes="90vw"
+              className="object-contain"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -38,14 +38,14 @@ export function CategoriesSection({ categories }: { categories: PublicCategory[]
                   key={category.id}
                   className="group bg-white rounded-3xl overflow-hidden border border-powder-pink/40 shadow-sm hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
                 >
-                  <Link href={`/pastalar/${category.slug}`} aria-label={category.name} className="relative block h-64 overflow-hidden bg-vanilla">
+                  <Link href={`/pastalar/${category.slug}`} aria-label={category.name} className="relative block aspect-[4/5] overflow-hidden bg-vanilla">
                     {category.imageUrl ? (
                       <ImageWithFallback
                         src={category.imageUrl}
                         alt={category.name}
                         fill
-                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(min-width: 640px) 50vw, 100vw"
+                        className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-powder-pink/40 via-vanilla to-lavender/40"></div>

@@ -1,18 +1,30 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
+const GROUP_TABS = [
+  { value: undefined, label: "Tümü" },
+  { value: "cake", label: "Pastalar" },
+  { value: "pastry", label: "Börek & Hamur İşleri" },
+] as const;
+
 export default async function AdminCakesPage({ searchParams }: PageProps<"/admin/cakes">) {
-  const { error, deleted } = await searchParams;
+  const { error, deleted, group } = await searchParams;
+  const activeGroup = group === "cake" || group === "pastry" ? group : undefined;
+
   const supabase = await createClient();
   const [{ data: cakes, error: fetchError }, { data: categories }] = await Promise.all([
     supabase
       .from("cakes")
       .select("id, name, slug, price, is_active, is_featured, sort_order, category_id")
       .order("sort_order", { ascending: true }),
-    supabase.from("categories").select("id, name"),
+    supabase.from("categories").select("id, name, product_group"),
   ]);
 
   const categoryNameById = new Map((categories ?? []).map((category) => [category.id, category.name]));
+  const categoryGroupById = new Map((categories ?? []).map((category) => [category.id, category.product_group]));
+  const visibleCakes = (cakes ?? []).filter(
+    (cake) => !activeGroup || (cake.category_id && categoryGroupById.get(cake.category_id) === activeGroup),
+  );
 
   return (
     <div className="flex flex-col gap-6">
@@ -21,6 +33,24 @@ export default async function AdminCakesPage({ searchParams }: PageProps<"/admin
         <Link href="/admin/cakes/new" className="rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white">
           Yeni Ürün
         </Link>
+      </div>
+
+      <div className="flex gap-2">
+        {GROUP_TABS.map((tab) => {
+          const isActive = activeGroup === tab.value;
+          const href = tab.value ? `/admin/cakes?group=${tab.value}` : "/admin/cakes";
+          return (
+            <Link
+              key={tab.label}
+              href={href}
+              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+                isActive ? "bg-neutral-900 text-white" : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+              }`}
+            >
+              {tab.label}
+            </Link>
+          );
+        })}
       </div>
 
       {error && (
@@ -54,7 +84,7 @@ export default async function AdminCakesPage({ searchParams }: PageProps<"/admin
             </tr>
           </thead>
           <tbody>
-            {cakes?.map((cake) => (
+            {visibleCakes.map((cake) => (
               <tr key={cake.id} className="border-b border-neutral-100 last:border-0">
                 <td className="px-4 py-3 text-neutral-500">{cake.sort_order}</td>
                 <td className="px-4 py-3 font-medium text-neutral-900">
@@ -93,10 +123,10 @@ export default async function AdminCakesPage({ searchParams }: PageProps<"/admin
               </tr>
             ))}
 
-            {cakes?.length === 0 && (
+            {visibleCakes.length === 0 && (
               <tr>
                 <td colSpan={6} className="px-4 py-6 text-center text-neutral-500">
-                  Henüz ürün yok.
+                  {activeGroup ? "Bu grupta henüz ürün yok." : "Henüz ürün yok."}
                 </td>
               </tr>
             )}

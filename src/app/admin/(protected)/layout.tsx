@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { href: "/admin", label: "Panel" },
   { href: "/admin/categories", label: "Kategoriler" },
   { href: "/admin/cakes", label: "Ürünler" },
+  { href: "/admin/cakes?group=pastry", label: "Börek & Hamur" },
   { href: "/admin/gallery", label: "Galeri" },
   { href: "/admin/reviews", label: "Yorumlar" },
   { href: "/admin/customizer", label: "Customizer" },

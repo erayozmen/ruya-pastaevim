@@ -1,18 +1,15 @@
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import type { PublicCake, PublicReview } from "@/lib/public-queries";
+import type { PublicCake } from "@/lib/public-queries";
 import type { SiteSettings } from "@/lib/site-data";
 import { buildWhatsappHref } from "@/lib/whatsapp";
 
 export function Hero({
   site,
   heroCake,
-  featuredReview,
 }: {
   site: SiteSettings;
   /** First active featured cake with a main image, if the admin has published one. */
   heroCake: PublicCake | null;
-  /** First active real review, if any — never a placeholder. */
-  featuredReview: PublicReview | null;
 }) {
   const primaryWhatsappHref = buildWhatsappHref(
     "Merhaba, özel günümüz için pasta siparişi vermek istiyorum.",
@@ -127,30 +124,7 @@ export function Hero({
 
               <div className="absolute inset-0 bg-gradient-to-t from-chocolate/40 via-transparent to-transparent"></div>
 
-              {/* Floating Mini Card 1: Review Snippet (only when a real review exists) */}
-              {featuredReview && (
-                <div className="absolute bottom-5 left-5 right-5 sm:right-auto sm:max-w-xs bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-white/70 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-powder-pink/50 flex-shrink-0 flex items-center justify-center text-gold">
-                    <i className="fa-solid fa-cake-candles text-lg"></i>
-                  </div>
-                  <div className="text-xs">
-                    <p className="font-bold text-chocolate line-clamp-2">
-                      &quot;{featuredReview.content}&quot;
-                    </p>
-                    <div className="flex text-gold text-[10px] my-0.5">
-                      {Array.from({ length: featuredReview.rating }).map((_, i) => (
-                        <i key={i} className="fa-solid fa-star"></i>
-                      ))}
-                    </div>
-                    <span className="text-chocolate/60">
-                      {featuredReview.customerName}
-                      {featuredReview.categoryName ? ` - ${featuredReview.categoryName}` : ""}
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {/* Floating Mini Badge 2: Handcrafted with Love */}
+              {/* Floating Mini Badge: Handcrafted with Love */}
               <div className="absolute top-5 right-5 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg border border-powder-pink/40 flex items-center gap-1.5 text-xs font-semibold text-chocolate">
                 <span className="text-peach animate-pulse">❤️</span> El Yapımı &amp; Taze
               </div>

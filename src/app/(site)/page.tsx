@@ -3,7 +3,7 @@ import { StorySection } from "@/components/home/StorySection";
 import { CategoriesSection } from "@/components/home/CategoriesSection";
 import { PastrySection } from "@/components/home/PastrySection";
 import { CakeCustomizer } from "@/components/home/CakeCustomizer";
-import { ReviewsSection } from "@/components/home/ReviewsSection";
+import { CustomerFeedbackGallery } from "@/components/home/CustomerFeedbackGallery";
 import { InstagramSection } from "@/components/home/InstagramSection";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { CustomizerProvider } from "@/context/customizer-context";
@@ -21,7 +21,6 @@ export default async function Home() {
     pastryCategories,
     pastryProducts,
     heroCake,
-    reviews,
     feedbackImages,
     customizerPreviewPool,
   } = home;
@@ -36,7 +35,7 @@ export default async function Home() {
 
   return (
     <>
-        <Hero site={site} heroCake={heroCake} featuredReview={reviews[0] ?? null} />
+        <Hero site={site} heroCake={heroCake} />
         <StorySection site={site} />
 
         <CustomizerProvider initialState={initialState}>
@@ -51,7 +50,7 @@ export default async function Home() {
           />
         </CustomizerProvider>
 
-        <ReviewsSection reviews={reviews} feedbackImages={feedbackImages} />
+        <CustomerFeedbackGallery images={feedbackImages} />
         <FinalCTA site={site} />
     </>
   );

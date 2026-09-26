@@ -1,8 +1,15 @@
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
+import { CustomerFeedbackGallery } from "./CustomerFeedbackGallery";
 import type { PublicReview } from "@/lib/public-queries";
 import { accentFor } from "@/lib/site-data";
 
-export function ReviewsSection({ reviews }: { reviews: PublicReview[] }) {
+export function ReviewsSection({
+  reviews,
+  feedbackImages,
+}: {
+  reviews: PublicReview[];
+  feedbackImages: string[];
+}) {
   return (
     <section id="yorumlar" className="py-20 bg-soft-cream border-t border-powder-pink/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,6 +76,8 @@ export function ReviewsSection({ reviews }: { reviews: PublicReview[] }) {
             })}
           </div>
         )}
+
+        <CustomerFeedbackGallery images={feedbackImages} />
       </div>
     </section>
   );

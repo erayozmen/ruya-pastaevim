@@ -31,6 +31,8 @@ function parseCakeForm(formData: FormData) {
     show_price: formData.get("show_price") === "on",
     is_featured: formData.get("is_featured") === "on",
     is_active: formData.get("is_active") === "on",
+    customizer_theme_values: formData.getAll("customizer_theme_values").map(String),
+    customizer_color_values: formData.getAll("customizer_color_values").map(String),
   };
 }
 
@@ -75,6 +77,8 @@ export async function createCake(_prevState: FormState, formData: FormData): Pro
     show_price: values.show_price,
     is_featured: values.is_featured,
     is_active: values.is_active,
+    customizer_theme_values: values.customizer_theme_values,
+    customizer_color_values: values.customizer_color_values,
   };
 
   const galleryImageUrls = parseGalleryImageUrls(formData);
@@ -130,6 +134,8 @@ export async function updateCake(id: string, _prevState: FormState, formData: Fo
     show_price: values.show_price,
     is_featured: values.is_featured,
     is_active: values.is_active,
+    customizer_theme_values: values.customizer_theme_values,
+    customizer_color_values: values.customizer_color_values,
   };
 
   const galleryImageUrls = parseGalleryImageUrls(formData);

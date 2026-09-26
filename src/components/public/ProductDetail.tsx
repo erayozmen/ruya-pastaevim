@@ -12,7 +12,7 @@ import { buildWhatsappHref } from "@/lib/whatsapp";
 
 const LISTING: Record<ProductGroup, { path: string; label: string }> = {
   cake: { path: "/pastalar", label: "Pastalar" },
-  pastry: { path: "/borek-hamur-isleri", label: "Börek & Hamur İşleri" },
+  pastry: { path: "/borek-hamur-isleri", label: "Özel Günler İçin Hamur İşleri" },
 };
 
 export async function ProductDetail({ slug, group }: { slug: string; group: ProductGroup }) {

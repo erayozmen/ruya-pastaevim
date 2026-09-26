@@ -27,7 +27,7 @@ const sacramento = Sacramento({
   display: "swap",
 });
 
-const defaultTitle = `${siteConfig.brand.name} | Butik Pasta, Börek & Hamur İşleri`;
+const defaultTitle = `${siteConfig.brand.name} | Butik Pasta, Özel Günler İçin Hamur İşleri`;
 const defaultDescription =
   "Doğum günleri, söz & nişan, baby shower ve en özel kutlamalarınız için size özel tasarlanan butik pastalar.";
 

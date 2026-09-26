@@ -1,23 +1,31 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { useCustomizer } from "@/context/customizer-context";
 import type { CustomizerOptions } from "@/lib/customizer-queries";
 import { buildCustomizerWhatsappUrl } from "@/lib/whatsapp";
 import { createOrderRequest } from "@/lib/order-requests";
+import { pickCustomizerPreviewImage, type CustomizerPreviewCake } from "@/lib/customizer-preview";
 import type { SiteSettings } from "@/lib/site-data";
 
 export function CakeCustomizer({
   options,
   error,
   site,
+  previewPool,
 }: {
   options: CustomizerOptions;
   error: string | null;
   site: SiteSettings;
+  previewPool: CustomizerPreviewCake[];
 }) {
   const { state, setPortion, setTheme, setColor, setFlavor, setNote } = useCustomizer();
   const { portions, themes, colors, flavors } = options;
+
+  const previewImageUrl = useMemo(
+    () => pickCustomizerPreviewImage(previewPool, { theme: state.theme, color: state.color }),
+    [previewPool, state.theme, state.color],
+  );
 
   const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
@@ -311,7 +319,7 @@ export function CakeCustomizer({
               {/* Cake visual sketch / preview frame */}
               <div
                 className="w-full h-44 rounded-2xl mb-6 bg-cover bg-center transition-all duration-500 relative flex items-end p-4 border border-white/60 shadow-inner bg-powder-pink/10"
-                style={activeTheme?.image ? { backgroundImage: `url('${activeTheme.image}')` } : undefined}
+                style={previewImageUrl ? { backgroundImage: `url('${previewImageUrl}')` } : undefined}
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-chocolate/70 via-transparent to-transparent rounded-2xl"></div>
                 <div className="relative z-10 text-white">

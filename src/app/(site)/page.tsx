@@ -15,7 +15,16 @@ export default async function Home() {
     getCustomizerOptions(),
     getHomePageData(),
   ]);
-  const { site, categories, pastryCategories, pastryProducts, heroCake, reviews } = home;
+  const {
+    site,
+    categories,
+    pastryCategories,
+    pastryProducts,
+    heroCake,
+    reviews,
+    feedbackImages,
+    customizerPreviewPool,
+  } = home;
 
   const initialState = {
     portion: options.portions[0]?.value ?? "",
@@ -34,10 +43,15 @@ export default async function Home() {
           <CategoriesSection categories={categories} />
           <PastrySection products={pastryProducts} categories={pastryCategories} />
           <InstagramSection site={site} />
-          <CakeCustomizer options={options} error={customizerError} site={site} />
+          <CakeCustomizer
+            options={options}
+            error={customizerError}
+            site={site}
+            previewPool={customizerPreviewPool}
+          />
         </CustomizerProvider>
 
-        <ReviewsSection reviews={reviews} />
+        <ReviewsSection reviews={reviews} feedbackImages={feedbackImages} />
         <FinalCTA site={site} />
     </>
   );

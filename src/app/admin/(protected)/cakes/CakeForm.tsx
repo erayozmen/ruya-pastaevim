@@ -12,15 +12,23 @@ export function CakeForm({
   cake,
   categories,
   initialGalleryUrls = [],
+  customizerThemes = [],
+  customizerColors = [],
 }: {
   action: Action;
   cake?: Tables<"cakes">;
   categories: Pick<Tables<"categories">, "id" | "name" | "product_group">[];
   initialGalleryUrls?: string[];
+  /** Active customizer options, so an admin can tag which theme/color this
+   * cake's real photo represents for the homepage "Pastanı Tasarla" preview. */
+  customizerThemes?: Pick<Tables<"customizer_themes">, "value" | "label">[];
+  customizerColors?: Pick<Tables<"customizer_colors">, "value" | "label">[];
 }) {
   const [state, formAction, pending] = useActionState(action, undefined);
   const [mainImageUrl, setMainImageUrl] = useState<string | null>(cake?.main_image_url ?? null);
   const [galleryUrls, setGalleryUrls] = useState<string[]>(initialGalleryUrls);
+  const existingThemeValues = new Set(cake?.customizer_theme_values ?? []);
+  const existingColorValues = new Set(cake?.customizer_color_values ?? []);
 
   const moveGalleryImage = (index: number, direction: -1 | 1) => {
     setGalleryUrls((prev) => {
@@ -69,7 +77,7 @@ export function CakeForm({
           {(
             [
               ["cake", "Pastalar"],
-              ["pastry", "Börek & Hamur İşleri"],
+              ["pastry", "Özel Günler İçin Hamur İşleri"],
             ] as const
           ).map(([group, label]) => (
             <optgroup key={group} label={label}>
@@ -199,6 +207,58 @@ export function CakeForm({
           />
         </div>
       </div>
+
+      {(customizerThemes.length > 0 || customizerColors.length > 0) && (
+        <div className="flex flex-col gap-3 rounded-md border border-neutral-200 p-4">
+          <div>
+            <span className="text-sm font-medium text-neutral-700">Customizer Eşleştirmesi</span>
+            <p className="text-xs text-neutral-500 mt-0.5">
+              Bu pastanın gerçek görseli hangi tema/renk seçimlerini temsil ediyorsa işaretleyin —
+              &quot;Pastanı Tasarla&quot; önizlemesinde seçime uygun gerçek pasta gösterilebilsin.
+            </p>
+          </div>
+
+          {customizerThemes.length > 0 && (
+            <div className="flex flex-col gap-1.5">
+              <span className="text-xs font-medium text-neutral-600">Temalar</span>
+              <div className="flex flex-wrap gap-3">
+                {customizerThemes.map((theme) => (
+                  <label key={theme.value} className="flex items-center gap-1.5 text-xs text-neutral-700">
+                    <input
+                      type="checkbox"
+                      name="customizer_theme_values"
+                      value={theme.value}
+                      defaultChecked={existingThemeValues.has(theme.value)}
+                      className="h-3.5 w-3.5 rounded border-neutral-300"
+                    />
+                    {theme.label}
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {customizerColors.length > 0 && (
+            <div className="flex flex-col gap-1.5">
+              <span className="text-xs font-medium text-neutral-600">Renkler</span>
+              <div className="flex flex-wrap gap-3">
+                {customizerColors.map((color) => (
+                  <label key={color.value} className="flex items-center gap-1.5 text-xs text-neutral-700">
+                    <input
+                      type="checkbox"
+                      name="customizer_color_values"
+                      value={color.value}
+                      defaultChecked={existingColorValues.has(color.value)}
+                      className="h-3.5 w-3.5 rounded border-neutral-300"
+                    />
+                    {color.label}
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="flex gap-4">
         <div className="flex flex-1 flex-col gap-1.5">

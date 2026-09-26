@@ -4,13 +4,17 @@ import { CakeListing } from "@/components/public/CakeListing";
 import { PageIntro } from "@/components/public/PageIntro";
 import { getPublicCakes, getPublicCategories } from "@/lib/public-queries";
 
-const description = "Börek ve hamur işleri.";
+const description = "Özel günler için hamur işleri.";
 
 export const metadata: Metadata = {
-  title: "Börek & Hamur İşleri",
+  title: "Özel Günler İçin Hamur İşleri",
   description,
   alternates: { canonical: "/borek-hamur-isleri" },
-  openGraph: buildOpenGraph({ title: "Börek & Hamur İşleri", description, path: "/borek-hamur-isleri" }),
+  openGraph: buildOpenGraph({
+    title: "Özel Günler İçin Hamur İşleri",
+    description,
+    path: "/borek-hamur-isleri",
+  }),
 };
 
 export default async function PastryPage() {
@@ -22,7 +26,7 @@ export default async function PastryPage() {
   return (
     <section className="py-20">
       <div className="mb-14 px-4">
-        <PageIntro script="Özel Günler İçin" title="Börek & Hamur İşleri" />
+        <PageIntro script="El Açması Lezzetler" title="Özel Günler İçin Hamur İşleri" />
       </div>
       <CakeListing
         cakes={products}

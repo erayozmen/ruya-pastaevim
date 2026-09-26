@@ -54,7 +54,7 @@ export default async function AdminCategoriesPage({
                 <td className="px-4 py-3 text-neutral-500">{category.sort_order}</td>
                 <td className="px-4 py-3 font-medium text-neutral-900">{category.name}</td>
                 <td className="px-4 py-3 text-neutral-500">{category.slug}</td>
-                <td className="px-4 py-3 text-neutral-500">{category.product_group === "pastry" ? "Börek & Hamur İşleri" : "Pastalar"}</td>
+                <td className="px-4 py-3 text-neutral-500">{category.product_group === "pastry" ? "Özel Günler İçin Hamur İşleri" : "Pastalar"}</td>
                 <td className="px-4 py-3">
                   <span
                     className={`rounded-full px-2 py-0.5 text-xs font-medium ${

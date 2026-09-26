@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 const GROUP_TABS = [
   { value: undefined, label: "Tümü" },
   { value: "cake", label: "Pastalar" },
-  { value: "pastry", label: "Börek & Hamur İşleri" },
+  { value: "pastry", label: "Özel Günler İçin Hamur İşleri" },
 ] as const;
 
 export default async function AdminCakesPage({ searchParams }: PageProps<"/admin/cakes">) {

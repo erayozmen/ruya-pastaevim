@@ -29,18 +29,10 @@ const CATEGORY_CARD_STYLE: Record<string, CategoryCardStyle> = {
     hoverText: "En tatlı çocuk temaları",
     themeValue: "🧸 Çocuk",
   },
-  "nisan-soz-pastalari": {
+  "dugun-ozel-kutlama": {
     titleHoverClass: "group-hover:text-gold",
     hoverText: "Zarif ve romantik detaylar",
     themeValue: "💍 Nişan",
-  },
-  "baby-shower": {
-    titleHoverClass: "group-hover:text-peach",
-    themeValue: "🎀 Romantik",
-  },
-  "dugun-ozel-kutlama": {
-    titleHoverClass: "group-hover:text-gold",
-    themeValue: "🌸 Çiçekli",
   },
   "ozel-konsept-bento": {
     titleHoverClass: "group-hover:text-peach",

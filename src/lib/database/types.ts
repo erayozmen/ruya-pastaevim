@@ -70,6 +70,8 @@ export type Database = {
         Row: {
           category_id: string | null
           created_at: string
+          customizer_color_values: string[]
+          customizer_theme_values: string[]
           description: string | null
           id: string
           is_active: boolean
@@ -85,6 +87,8 @@ export type Database = {
         Insert: {
           category_id?: string | null
           created_at?: string
+          customizer_color_values?: string[]
+          customizer_theme_values?: string[]
           description?: string | null
           id?: string
           is_active?: boolean
@@ -100,6 +104,8 @@ export type Database = {
         Update: {
           category_id?: string | null
           created_at?: string
+          customizer_color_values?: string[]
+          customizer_theme_values?: string[]
           description?: string | null
           id?: string
           is_active?: boolean
@@ -162,6 +168,33 @@ export type Database = {
           product_group?: string
           show_on_home?: boolean
           slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      customer_feedback_images: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string
+          is_active: boolean
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url: string
+          is_active?: boolean
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string
+          is_active?: boolean
           sort_order?: number
           updated_at?: string
         }

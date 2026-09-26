@@ -45,7 +45,7 @@ export default async function PastryCategoryPage({
     <section className="py-20">
       <div className="mb-14 px-4">
         <PageIntro
-          script="Börek & Hamur İşleri"
+          script="Özel Günler İçin Hamur İşleri"
           title={category.name}
           description={category.description ?? undefined}
         />

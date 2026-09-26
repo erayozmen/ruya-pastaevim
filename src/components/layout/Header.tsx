@@ -8,7 +8,7 @@ import { buildWhatsappHref } from "@/lib/whatsapp";
 
 const navLinks = [
   { href: "/pastalar", label: "Pastalar" },
-  { href: "/borek-hamur-isleri", label: "Börek & Hamur İşleri" },
+  { href: "/borek-hamur-isleri", label: "Hamur İşleri" },
   { href: "/hakkimizda", label: "Hikayemiz" },
   { href: "/galeri", label: "En Sevilenler" },
 ];

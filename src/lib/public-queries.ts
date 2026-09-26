@@ -6,6 +6,7 @@ import {
   mapSiteSettings,
   type SiteSettings,
 } from "@/lib/site-data";
+import type { CustomizerPreviewCake } from "@/lib/customizer-preview";
 
 /**
  * Public read layer. Every query runs through the anon-capable server
@@ -75,6 +76,8 @@ export interface HomePageData {
   heroCake: PublicCake | null;
   galleryItems: PublicGalleryItem[];
   reviews: PublicReview[];
+  feedbackImages: string[];
+  customizerPreviewPool: CustomizerPreviewCake[];
 }
 
 type Supabase = Awaited<ReturnType<typeof createClient>>;
@@ -279,6 +282,46 @@ export async function getPublicGalleryItems(): Promise<PublicGalleryItem[]> {
   return getGalleryItems(supabase, new Map(categories.map((category) => [category.id, category.name])));
 }
 
+/** Real Instagram/WhatsApp customer feedback screenshots for the homepage
+ * gallery — purely visual, no text fields, kept separate from `reviews`. */
+async function getCustomerFeedbackImages(supabase: Supabase): Promise<string[]> {
+  const { data, error } = await supabase
+    .from("customer_feedback_images")
+    .select("image_url")
+    .eq("is_active", true)
+    .order("sort_order", { ascending: true });
+  logError("customer_feedback_images", error);
+  return (data ?? []).map((row) => row.image_url);
+}
+
+/** Every active cake's photo plus the customizer theme/color tags an admin
+ * has assigned it, for the "Pastanı Tasarla" live preview to match against
+ * (see `pickCustomizerPreviewImage`). Pastry products are excluded — the
+ * customizer designs cakes, not börek/hamur items. */
+async function getCustomizerPreviewPool(
+  supabase: Supabase,
+  cakeCategoryIds: string[],
+): Promise<CustomizerPreviewCake[]> {
+  if (cakeCategoryIds.length === 0) return [];
+
+  const { data, error } = await supabase
+    .from("cakes")
+    .select("main_image_url, customizer_theme_values, customizer_color_values, sort_order")
+    .eq("is_active", true)
+    .in("category_id", cakeCategoryIds)
+    .not("main_image_url", "is", null)
+    .order("sort_order", { ascending: true });
+  logError("customizer_preview_pool", error);
+
+  return (data ?? [])
+    .filter((row): row is typeof row & { main_image_url: string } => Boolean(row.main_image_url))
+    .map((row) => ({
+      imageUrl: row.main_image_url,
+      themeValues: row.customizer_theme_values,
+      colorValues: row.customizer_color_values,
+    }));
+}
+
 export async function getHomePageData(): Promise<HomePageData> {
   const supabase = await createClient();
 
@@ -289,11 +332,14 @@ export async function getHomePageData(): Promise<HomePageData> {
   ]);
 
   const categoryNames = new Map(allCategories.map((category) => [category.id, category.name]));
+  const cakeCategoryIds = allCategories.filter((category) => category.group === "cake").map((category) => category.id);
 
-  const [galleryItems, reviews, pastryProducts] = await Promise.all([
+  const [galleryItems, reviews, pastryProducts, feedbackImages, customizerPreviewPool] = await Promise.all([
     getGalleryItems(supabase, categoryNames, HOME_GALLERY_LIMIT),
     getReviews(supabase, categoryNames),
     getPublicCakes({ group: "pastry", limit: 6, categories: allCategories, supabase }),
+    getCustomerFeedbackImages(supabase),
+    getCustomizerPreviewPool(supabase, cakeCategoryIds),
   ]);
 
   return {
@@ -304,5 +350,7 @@ export async function getHomePageData(): Promise<HomePageData> {
     heroCake,
     galleryItems,
     reviews,
+    feedbackImages,
+    customizerPreviewPool,
   };
 }

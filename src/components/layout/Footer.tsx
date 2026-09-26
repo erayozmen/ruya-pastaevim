@@ -4,7 +4,7 @@ import type { SiteSettings } from "@/lib/site-data";
 
 const exploreLinks = [
   { href: "/pastalar", label: "Pastalarımız" },
-  { href: "/borek-hamur-isleri", label: "Börek & Hamur İşleri" },
+  { href: "/borek-hamur-isleri", label: "Özel Günler İçin Hamur İşleri" },
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/galeri", label: "Fotoğraf Galerisi" },
   { href: "/#tasarla", label: "Pastanı Tasarla" },

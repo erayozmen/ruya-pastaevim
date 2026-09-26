@@ -11,15 +11,18 @@ export default async function EditCakePage({
   const { error } = await searchParams;
   const supabase = await createClient();
 
-  const [{ data: cake }, { data: categories }, { data: images }] = await Promise.all([
-    supabase.from("cakes").select("*").eq("id", id).single(),
-    supabase.from("categories").select("id, name, product_group").order("sort_order", { ascending: true }),
-    supabase
-      .from("cake_images")
-      .select("image_url")
-      .eq("cake_id", id)
-      .order("sort_order", { ascending: true }),
-  ]);
+  const [{ data: cake }, { data: categories }, { data: images }, { data: themes }, { data: colors }] =
+    await Promise.all([
+      supabase.from("cakes").select("*").eq("id", id).single(),
+      supabase.from("categories").select("id, name, product_group").order("sort_order", { ascending: true }),
+      supabase
+        .from("cake_images")
+        .select("image_url")
+        .eq("cake_id", id)
+        .order("sort_order", { ascending: true }),
+      supabase.from("customizer_themes").select("value, label").eq("is_active", true).order("sort_order"),
+      supabase.from("customizer_colors").select("value, label").eq("is_active", true).order("sort_order"),
+    ]);
 
   if (!cake) {
     notFound();
@@ -43,6 +46,8 @@ export default async function EditCakePage({
           cake={cake}
           categories={categories ?? []}
           initialGalleryUrls={(images ?? []).map((image) => image.image_url)}
+          customizerThemes={themes ?? []}
+          customizerColors={colors ?? []}
         />
       </div>
     </div>
